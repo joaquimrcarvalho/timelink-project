@@ -1,4 +1,0 @@
-created(1674134881.578434).
-assert(user_token('7e8dc051a6ed430e5f0a1cc7489dcb5ae56b4884',bootstrap,[created(1674134881.5741446),life_span(300),api([generate_token])])).
-assert(user_token('89953eb78a87e2a8bdcf259df362464374006645',mhk,[created(1674135055.542443),comment('MHK generated token for mhk'),api([sources,files,structures,translations,upload,delete,mkdir]),sources('sources/demo_sources/soure'),structures('sources/demo_sources/soure/structures')])).
-retractall(user_token('7e8dc051a6ed430e5f0a1cc7489dcb5ae56b4884',_,_),1).
