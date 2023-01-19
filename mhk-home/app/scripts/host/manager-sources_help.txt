@@ -1,0 +1,37 @@
+Execute repository related tasks by running git commands in the docker container handling sources.
+
+Usage: mhk sources list
+       mhk sources clone URL TOK DIR  Clone sources from git repository
+                                      with url URL and token TOK into mhk-home/sources/DIR
+
+       mhk sources DIR COMMAND ARGS
+       mhk sources --help
+
+DIR: name of dir inside mhk-home/sources
+COMMAND is a git command to be run inside the directory specified by DIR
+ARGS: optional arguments to be passed to the git command. Do git --help or git COMMAND --help for more information.
+
+    list                   List directories with sources
+    clone URL TOK DIR      Clone sources from git repository
+                           with url URL and token TOK into mhk-home/sources/DIR
+    clone URL TOK DIR ARGS Same as before use ARGS = --recurse-submodules to clone rep with submodules
+    DIR status ARGS        Git status of a source directory (optional args to git status)
+    DIR log ARGS           Git log
+    DIR user-info first-name last-name email
+                           Store user name and email in git configuration so it is used in commits.
+                           This is necessary for commits.
+   DIR user-info --show    Show current user name and email for commits in DIR.
+   DIR COMMAND ARGS        Git command and args will be run inside docker container.
+   --help                  This information
+
+Examples:
+    mhk sources list
+    mhk sources clone https://github.com/timelink-project/sources-contrib.git 336b0...2d847db mysourcedir
+    mhk sources mysourcedir status      Status of the repository soure-fontes
+    mhk sources mysourcedir log         Commit messages on repository soure-fontes
+    mhk sources mysourcedir log -N --relative-date
+                                         Last N commit messages with relative dates
+                                         (as in other commands extra arguments are passed to git)
+    mhk sources mysourcedir user-info "Joaquim Carvalho" joaquim@uc.pt
+                                        Set user name and email for commit in mysourcedir. Quotes around the name
+                                        are important. If not set before commit, they will be asked.

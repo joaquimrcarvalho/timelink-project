@@ -1,0 +1,30 @@
+===== Migration from MySQL version to MariaDB version =====
+
+From version 5.5 onwards MHK uses mariadb instead of mysql.
+
+However if a previous mysql database is detected
+and a version with mariadb was never run before,
+MHK will use continue to use mysql.
+
+If you want to migrate the database from mysql to mariadb
+you can use the following commands:
+   mhk use-mysql; mhk stop; mhk start
+   mhk db dump
+   mhk stop
+   mhk use-mariadb
+   mhk start
+   mhk db import <dump file> # 'mhk db import' alone will list the dump files
+
+if after the migration you have permission problems do:
+
+   mhk db upgrade
+   mhk db fix-permissions
+
+You can always go back to the mysql version with
+
+    mhk use-mysql
+    mhk stop
+    mhk start
+
+It is recommended to use the mariadb version as the mysql version
+used (5.7) is no longer maintained.

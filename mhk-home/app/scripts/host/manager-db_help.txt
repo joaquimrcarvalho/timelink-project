@@ -1,0 +1,40 @@
+Usage: mhk db COMMAND
+
+Database management commands:
+
+    db status           Lists MHK databases with total number of rows.
+    db migrate          Migrate databases from HOST MySQL to MHK MySQL
+    db host-dump        Call mysqldump on the HOST MySQ server and dump all the databases
+    db host-list        List of MHK databases on HOST MySQ server
+    db dump | db-backup Call mysqldump on mhk mysql database server and dump all databases
+    db export           Export a database from MHK MySQL
+    db import           Imports dump or export into mhk mysql
+    db copy             Copy an existing database into a new one.
+    db create           Create an empty database
+    db list             List of MHK databases
+    db processlist      List of MySQL active connections
+    db log              Show MHK database log
+    db status           Number of rows of each MHK database
+    db ptest            Test MHK MySQL password
+    db password         Change MHK MySQL password
+    db upgrade          Upgrade database after database import, if needed.
+    db fix-permissions  Fix permissions after database import, by setting default password and permissions
+    db exec             Execute tools on the app database server container
+    mysql               Short cut for db exec mysql
+
+- HOST MySQL refers to a MySQL installed directly in the host computer (normally part of a pre-2019  MHK)
+- MHK MySQL refers to the MySQL installed internally by a MHK2019 install.
+- In pre-2019 MHK Portable windows installations mhk to start the HOST MySQL.
+
+Examples:
+
+mhk db exec COMMAND PARAMETERS   Passes COMMAND and PARAMETERS to the container running MySQL.
+
+    To verify and reppair if necessary the tables of a database with mysqlcheck:
+
+            mhk db exec mysqlcheck -uroot -p db_name
+
+
+    To list and count rows in the tables of a database
+
+            mhk db exec mysqlshow -uroot -p --count db_name

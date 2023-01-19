@@ -1,0 +1,27 @@
+# External site configuration
+# Replace localhost with fully qualified host name
+# Caddy will generate https certificate
+#
+localhost {
+
+    route /kleio* {
+	uri strip_prefix /kleio
+	reverse_proxy kleio:8088
+    }
+
+    redir /portainer /portainer/
+    route /portainer* {
+	uri strip_prefix /portainer
+	reverse_proxy portainer:9000
+    }
+
+    route /mhk* {
+     uri replace /mhk2019 /mhk 
+	 reverse_proxy mhk:8080
+    }
+
+    route * {
+     file_server
+    }
+    
+}

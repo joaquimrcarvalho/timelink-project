@@ -1,0 +1,93 @@
+version: '3.7'
+# docker-compose file for MHK
+# Version: 5 Build: 2115 (master) 19/01/2023 17:09 
+
+services:
+  mhk:
+    # using tomcat 7 with jre 7.
+    # using tomcat 7 with jre 7.
+    image: joaquimrcarvalho/mhk-tomcat:latest
+    depends_on:
+      - kleio
+      - mysql
+    ports:
+      - "${MHK_TOMCAT_PORT}:8080"
+    volumes:
+      - ${HOST_MHK_HOME}:/mhk-home:cached
+      - ${HOST_MHK_HOME}/system/logs/tomcat:/usr/local/tomcat/logs
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - JAVA_OPTS= -Dtest_from_java_opts="Docker version" -Ddb.password=${MYSQL_ROOT_PASSWORD}
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      mode: replicated
+      replicas: 1
+      restart_policy:
+          condition: on-failure
+          delay: 5s
+          max_attempts: 3
+          window: 120s
+
+
+   # environment:
+   #   - JAVA_OPTS= -Dtest_from_java_opts="${env_message}" -Ddb.password="${MYSQL_ROOT_PASSWORD}"
+
+  kleio:
+    # includes git
+    image: joaquimrcarvalho/kleio-server:latest
+    volumes:
+      - ${HOST_MHK_HOME}:/kleio-home:cached
+    ports:
+      - "${MHK_KLEIO_DEBUGGER_PORT}:4000"
+      - "${MHK_KLEIO_PORT}:8088"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  mysql:
+    image: mysql:5.7
+    volumes: 
+      - ${HOST_MHK_HOME}/system/db/mysql/init:/docker-entrypoint-initdb.d
+      - ${HOST_MHK_HOME}/system/db/mysql/data:/var/lib/mysql:delegated
+      - ${HOST_MHK_HOME}/system/db/mysql/backup:/backup:delegated
+    #command: mysqld --innodb-use-native-aio=0
+    environment:
+      - MYSQL_ROOT_PASSWORD
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      mode: replicated
+      replicas: 1
+
+  portainer:
+    image: portainer/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - "9000:9000"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 1000
+        window: 5s
+
+volumes:
+  portainer_data:

@@ -1,0 +1,50 @@
+Usage: mhk COMMAND [ARGS]
+
+Commands:
+    version             Manager version
+    init                Initializes a mhk-home directory
+    up | start          Starts the mhk application
+    update              updates app from the repository
+    open                Open a browser with MHK
+    portainer           Open a browser with the Portainer manager
+    kleio               Open the status page of translation service
+    stop                Stop the mhk application
+    services            List running services
+    ps                  List running containers
+    restart             Restarts a service
+    prune               Clean old versions of application files (no user data removed)
+    logs                Display logs application services.
+    config              Show docker configuration file with variables
+    migrate             Upgrade from a previous (pre-2019) mhk installation
+    migrate-mariadb     Upgrade a mysql database to mariadb (how to)
+    set-var             Set value form an environment variable in a file
+    use-tag             When updating from docker use images with a specific tag
+    set-host            Register the DNS name of the local machine (used in mhk open)
+    header-color        Set the color of the header
+                               see https://www.w3.org/wiki/CSS/Properties/color/keywords
+    report [status]     List version, users and sources. If status list commits in sources.
+    db                  Database related commands (mhk db --help)
+    use-mariadb         Use MariaDB instead of MySQL
+    use-mysql           Use MySQL instead of MariaDB
+    user                User management command (mhk user --help)
+    sources             Sources management (mhk sources --help)
+
+To debug change environment variables in the terminal:
+ the manager script:
+
+    export MHK_DEBUG=MANAGER
+
+  the mhk server app:
+
+    export MHK_DEBUG=DEBUG
+
+  the Kleio server
+
+    export KLEIO_DEBUG=true
+
+Stop and start mhk after setting the above variables
+
+To stop debug log
+
+    export MHK_DEBUG=
+    export KLEIO_DEBUG=false

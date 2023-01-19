@@ -1,0 +1,111 @@
+version: '3.9'
+# docker-compose file for MHK
+# Version: 5 2115 (master) 19/01/2023 17:09 
+# This is run from the mhk-home/app directory
+# mhk-home/app/.env should contain the variables for the various ports.
+
+services:
+  mhk:
+    # using tomcat 7 with jre 7.
+    image: joaquimrcarvalho/mhk-tomcat:${TAG}
+    depends_on:
+      - kleio
+      - mysql
+    ports: 
+      - "${MHK_TOMCAT_PORT}:8080"
+      # debug
+      - "8001:8001"
+
+    volumes:
+      - ${HOST_MHK_HOME}:/mhk-home:cached
+      - ${HOST_MHK_HOME}/system/logs/tomcat:/usr/local/tomcat/logs
+
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - JAVA_OPTS= -Dtest_from_java_opts="Docker version" -Ddb.password=${MYSQL_ROOT_PASSWORD}
+      - MHK_TOMCAT_PORT=8080
+      - HOST_MHK_HOME
+      - HEADER_BGCOLOR
+      # MHK_DEBUG set the log level of the app
+      # Set to one of Log4j Level names
+      #      OFF (most specific, no logging)
+      #      FATAL (most specific, little data)
+      #      ERROR
+      #      WARN
+      #      INFO
+      #      DEBUG
+      #      TRACE (least specific, a lot of data)
+      #      ALL (least specific, all data)
+      - MHK_DEBUG
+      # debugger setup
+      - JPDA_ADDRESS=8001
+      - JPDA_TRANSPORT=dt_socket
+      - MHK_LOG_LEVEL
+      - KLEIO_ADMIN_TOKEN
+      - KLEIO_SERVER_PORT
+    # debug
+    command: /usr/local/tomcat/bin/catalina.sh jpda run
+
+    restart: unless-stopped
+
+  kleio:
+    # includes git
+    image: joaquimrcarvalho/kleio-server:${TAG}
+
+    user: ${CURRENT_UID}
+
+    volumes:
+      - ${HOST_MHK_HOME}:/kleio-home:cached
+    ports:
+      - "${MHK_KLEIO_PORT}:8088"
+    environment:
+      - KLEIO_DEBUG
+      - KLEIO_SERVER_WORKERS
+      - KLEIO_SERVER_PORT
+      - KLEIO_ADMIN_TOKEN
+    restart: unless-stopped
+
+  mysql:
+    image: ${MYSQL_IMAGE} # set in the manager script according to DATABASE_TYPE env variable
+    volumes: 
+      - ${HOST_MHK_HOME}/system/db/mysql/init:/docker-entrypoint-initdb.d
+      - ${MYSQL_DATA_DIR}:/var/lib/mysql:delegated # set in manager script
+      - ${HOST_MHK_HOME}/system/db/mysql/backup:/backup:delegated
+    command: mysqld $MYSQL_OPTS --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb_lock_wait_timeout=300 --interactive-timeout=900 --wait-timeout=900
+    environment:
+      - MYSQL_ROOT_PASSWORD
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
+
+  portainer:
+      image: portainer/portainer
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer_data:/data
+      ports:
+        - "9000:9000"
+      restart: unless-stopped
+
+  caddy:
+      image: caddy:2.3.0
+      depends_on:
+        - kleio
+        - mhk
+        - portainer
+
+      restart: unless-stopped
+      environment:
+        - MHK_HOSTS
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - ${HOST_MHK_HOME}/system/conf/caddy/Caddyfile:/etc/caddy/Caddyfile
+        - ${HOST_MHK_HOME}/system/caddy/site:/srv
+        - caddy_data:/data
+        - caddy_config:/config
+volumes:
+  portainer_data:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,597 @@
+#!/bin/bash
+# MHK manager. Sets up the a Command Line Interface to MHK, for easy interaction with the app and the
+# docker images and containers it uses.
+#
+# NOTE: this is to be run in the host machine
+#
+# This script saves the paths to the user home directory and the mhk-home directory in the file ~/.mhk and some basic defaults for service parameters.
+# and creates an alias for this script in ~/.bash_profile
+#
+# To function properly the init command must be executed in mhk-home directory before everything else
+#
+# The first run sets an alias in ~/.bash_profile so further runs can be done in any directory
+# with "mhk".
+#
+# Files created by this script:
+#   ~/.mhk                : Created by this script, in the "init" command.
+#                           Contains values of variables HOST_MHK_USER_HOME, HOST_MHK_HOME and MYSQL_OPTS
+#
+#  Files checked by this script:
+#  HOST_MHK_HOME/.mhk-home :Created by mhk-init.sh run in the mhk-manager container. Signals we are in a mhk-home
+#  HOST_MHK_HOME/.mhk-home-init : Created by app/scripts/host/manager-init.sh. Contains a date
+#                           Its existence signals that the "init" command was sucessfully executed.
+#
+# The init command must run before anything else, we trap it here at the begining
+
+# check if a pre-2019 install exists
+#
+# export MHK_DEBUG=DEBUG or to non empty to debug. Set to other value not to.
+#
+# Platform notes as of February 2020
+#
+# On windows 10 home pro commands inside containers that require console interactivity e.g. docker run|exec ... -it
+# must be prefixed with winpty. This is handled by manager by setting the $RUN_DOCKER_IT variable either to "docker" or to "winpty docker"
+# however this triggers a problem with parsing arguments, in particular what looks like paths.
+#
+# For instance
+#    $RUN_DOCKER_IT run --rm --name manager --user $(id -u):$(id -g) \
+#      -e HOST_MHK_HOME="$HOST_MHK_HOME" \
+#      -e HOST_MHK_USER_HOME="$HOST_MHK_USER_HOME" \
+#      -v "$HOST_MHK_USER_HOME":/home/mhk \
+#      -v "$HOST_MHK_HOME":/mhk-home \
+#      -it joaquimrcarvalho/mhk-manager \
+#      sh //mhk-home/app/scripts/container/manager-migrate.sh "$@"
+#      # the double // on the line above is necessary when $RUN_DOCKER_IT is "winpty docker"
+# ## see siochs comment on 25 Jul 2019 in https://github.com/docker/for-win/issues/1588
+#
+# This affects mhk user, mhk migrate and in manager-db all the commands that imply that mysql asks for password.
+#
+if [ -z "$MHK_DEBUG" ]; then
+  true
+else
+  if [ "$MHK_DEBUG" = "MANAGER" ]; then
+    set -x
+  fi
+fi
+
+pre_2019_install() {
+  if [ -f "$HOST_MHK_USER_HOME/mhk.properties" ]; then
+    echo "YES"
+    return 0
+  else
+    echo "NO"
+    return 1
+  fi
+}
+# Replace a variable assignment in a file.
+# Usage replace_var_in_file FILE VAR VALUE
+replace_var_in_file() {
+  echo "replace_var_in_file" "$1" "$2" "$3"
+  if [ -f "$1" ]; then
+    echo "Replacing value of" "$2" with "$3" in file "$1"
+  else
+    echo "File $1 does not exist."
+    return 1
+  fi
+  cp -f "$1" "$1.bak"
+  sed "/$2=/d" "$1.bak" >"$1"
+  printf "%s=%s\n" "$2" "$3" >>"$1"
+  return 0
+}
+# guess the OS where docker is running
+# returns "mac" "windows" "linux" or "unkown"
+# usage:
+# if [ $(test_os) = "windows" ] ; then
+#   echo "I am running in windows"
+# fi
+test_os() {
+  _mac=$(docker version | grep -c darwin)
+  _arm=$(docker version | grep -c "arm64")
+  _windows=$(docker version | grep -c windows)
+  _linux=$(docker version | grep -c linux)
+
+  if [ "$_mac" != "0" ]; then
+    echo "mac"
+    return
+  fi
+  if [ "$_windows" != "0" ]; then
+    if [ ! -f /c/Windows/System32/BitLockerWizard.exe ]; then
+      echo "windows-home"
+    else
+      echo "windows"
+    fi
+    return
+  fi
+  if [ "$_linux" != "0" ]; then
+    echo "linux"
+    return
+  fi
+  echo "unknown"
+  return
+}
+
+test_architecture() {
+  _x86=$(docker version | grep -c "x86_64")
+  _amd=$(docker version | grep -c "amd64")
+  _arm=$(docker version | grep -c "arm64")
+  if [ "$_x86" != "0" ]; then
+    echo "x86_64"
+    return
+  fi
+  if [ "$_amd" != "0" ]; then
+    echo "amd64"
+    return
+  fi
+  if [ "$_arm" != "0" ]; then
+    echo "arm64"
+    return
+  fi
+  echo "unknown"
+  return
+}
+
+# store current user and group
+export CURRENT_UID=$(id -u):$(id -g)
+
+# Initialization
+if [ "$1" = "init" ]; then
+  if [ -f .mhk-home ]; then
+    echo "Running app/scripts/host/manager-init.sh"
+    pwd
+    echo
+    . ./app/scripts/host/manager-init.sh
+    echo "Open a new terminal and type mhk --help "
+    exit
+  else
+    echo "To finish instalation manager must be run from inside mhk-home."
+    echo "We are inside $PWD, please cd to mhk-home and type mhk init"
+    echo
+    echo "To create a new mhk-home an initialize mhk do:"
+    echo "   mkdir -p mhk-home"
+    echo "   cd mhk-home"
+    echo "   docker run  --user $(id -u):$(id -g) -v \$PWD:/mhk-home mhk-manager mhk-install"
+    echo "   sh app/manager init"
+    exit 1
+  fi
+
+fi
+
+# Check if there was a previous install with values stored at ~/.mhk
+if [ -f ~/.mhk ]; then
+  # The following line reads the env variables from ~/.mhk see https://stackoverflow.com/questions/19331497/set-environment-variables-from-file-of-key-value-pairs
+  # set -a -> all subsequent variables created by var=value are "exported" to subsequent commands
+  # . ~/.mhk -> reads .mhk file at home directory which contains variable assignments
+  # set +a -> return to the normal behaviour where variables are set only in the current process
+  set -a
+  # shellcheck source=$PWD
+  . ~/.mhk
+  set +a
+
+  if [ -d "$HOST_MHK_HOME" ]; then # this tests that mhk-home is there (could have been removed)
+    MHK_HOME_INIT=$(cat "$HOST_MHK_HOME/.mhk-home-manager-init")
+    export MHK_HOME_INIT
+    if [ -f "${HOST_MHK_HOME}/app/.env" ]; then
+      set -a
+      # shellcheck disable=SC1090
+      . "${HOST_MHK_HOME}/app/.env"
+      set +a
+    else
+      echo "Warning: could not find ${HOST_MHK_HOME}/app/.env "
+    fi
+  else # Oops we have a path to mhk-home but there is nothing there
+    echo "Could not find mhk-home"
+    echo " A previous install set mhk-home at  $HOST_MHK_HOME"
+    echo
+    echo "To create a new mhk-home do:"
+    echo "   mkdir -p mhk-home"
+    echo "   cd mhk-home"
+    echo "   docker run  --user $(id -u):$(id -g)  -v \$PWD:/mhk-home joaquimrcarvalho/mhk-manager:$TAG mhk-install"
+    rm ~/.mhk
+    exit 1
+  fi
+else
+  echo "MHK initialization not done."
+  echo "Run sh app/manager init in the mhk-home directory if one already exists."
+  echo "To create a new mhk-home an initialize mhk do:"
+  echo "   mkdir -p mhk-home"
+  echo "   cd mhk-home"
+  echo "   docker run --user $(id -u):$(id -g) -v \$PWD:/mhk-home joaquimrcarvalho/mhk-manager:$TAG mhk-install"
+  echo "   sh app/manager init"
+fi
+## get tag to use for docker images
+if [ -z ${TAG} ]; then
+  echo "TAG variable not set."
+  echo "TAG determines which version of MHK to run"
+  echo "'Latest' assumed. Do 'mhk use-tag VALUE' to change."
+  echo "VALUE one of 'latest', <version string>(e.g. 5 or 6 or 5.2 or 6.0 or 6.0.2021)"
+  export TAG="latest"
+fi
+
+# This is related to migration from mysql:5.7 to mariadb, triggered by Apple Silicon Macs.
+# the default database is currently mariadb
+# it uses the directory ${HOST_MHK_HOME}/system/db/mysql/data2"
+# previous versions to feb 2022 used mysql and the directory ${HOST_MHK_HOME}/system/db/mysql/data"
+# Upon upgrade we have the following matrix
+# 1. if ${HOST_MHK_HOME}/system/db/mysql/data" exists and ${HOST_MHK_HOME}/system/db/mysql/data2" does not exist
+#  then we assume that the user has an old version of mhk and we advise to do dump and import
+#  1.1 if the architecture is intel or amd we use mysql:5.7 as the image for the database service
+#      and advise to do dump switch to mariadb and import
+#  1.2 if the architecture is arm we use biarms/mysql:5.7 as the image for the database service
+#      and advise to do dump switch to mariadb and import
+# 2. if ${HOST_MHK_HOME}/system/db/mysql/data" does not exist we do nothing
+
+if [ -d "${HOST_MHK_HOME}/system/db/mysql/data" ]; then
+  # if ${HOST_MHK_HOME}/system/db/mysql/data2" (mariadb) does not exist
+  if [ ! -d "${HOST_MHK_HOME}/system/db/mysql/data2" ]; then
+    echo "MySQL 5.7 detected. do 'mhk migrate-mariadb' for instructions."
+    echo
+    export DATABASE_TYPE="mysql"
+  fi
+fi
+
+
+# The code from here could run on a container
+# save current dir
+curdir="$(pwd)"
+current_architecture="$(test_architecture)"
+export mhk_home_dir="$HOST_MHK_HOME"
+mhk_manager_version=$(cat "$HOST_MHK_HOME/app/manager_version")
+export mhk_manager_version
+KLEIO_ADMIN_TOKEN=$(grep ^mhk.kleio.service.token.admin  "$HOST_MHK_HOME/system/conf/mhk_system.properties" | sed 's/mhk.kleio.service.token.admin=//g')
+export KLEIO_ADMIN_TOKEN
+
+
+# Set environment variables for docker compose
+# See https://docs.docker.com/compose/reference/overview/
+
+# if DATABASE_TYPE is not set, set it to mariadb
+if [ -z "${DATABASE_TYPE}" ]; then
+  export DATABASE_TYPE="mariadb"
+fi
+# if DATABASE_TYPE is set to mysql, set the image to mysql:5.7
+if [ "$DATABASE_TYPE" = "mysql" ]; then
+  export MYSQL_DATA_DIR="${HOST_MHK_HOME}/system/db/mysql/data"
+  if [ "$current_architecture" = "x86_64" ] || [ "$current_architecture" = "amd64" ]; then
+    export MYSQL_IMAGE="mysql:5.7"
+  else # arm we have to use biarms/mysql:5.7
+    export MYSQL_IMAGE="biarms/mysql:5.7"
+  fi
+fi
+# if DATABASE_TYPE is set to mariadb, set the image to mariadb:10.5
+if [ "$DATABASE_TYPE" = "mariadb" ]; then
+  export MYSQL_DATA_DIR="${HOST_MHK_HOME}/system/db/mysql/data2"
+  export MYSQL_IMAGE="mariadb"
+fi
+
+if [ -z ${MHK_HOST} ]; then
+  export MHK_HOST="127.0.0.1"
+fi
+if [ -z ${MHK_HOSTS} ]; then
+  export MHK_HOSTS="${MHK_HOST}"
+fi
+
+$(replace_var_in_file "$HOST_MHK_USER_HOME/.mhk" "kleio_url" "http://${MHK_HOST}:$MHK_KLEIO_PORT") >/dev/null
+$(replace_var_in_file "$HOST_MHK_USER_HOME/.mhk" "mhk_url" "http://${MHK_HOST}:$MHK_TOMCAT_PORT") >/dev/null
+$(replace_var_in_file "$HOST_MHK_USER_HOME/.mhk" "portainer_url" "http://${MHK_HOST}:$PORTAINER_PORT") >/dev/null
+
+export current_os
+if [ "$current_os" = "windows" ]; then
+  export RUN_DOCKER_IT="winpty docker"
+  export winpty="winpty"
+elif [ "$current_os" = "windows-home" ]; then
+  export RUN_DOCKER_IT="winpty docker"
+  export winpty="winpty"
+else
+  export RUN_DOCKER_IT="docker"
+  export winpty=""
+fi
+case "$1" in
+"version" | "--version")
+  echo "Manager version:  $mhk_manager_version"
+  echo "Database type:    $DATABASE_TYPE"
+  echo "Docker version:   $(docker --version)"
+  echo "Host OS:          $(test_os)/$(test_architecture)"
+  echo "User home:        $HOST_MHK_USER_HOME"
+  echo "mhk-home:         $HOST_MHK_HOME"
+  echo "mhk-home init:    $MHK_HOME_INIT"
+  echo "mhk-home update:  $(cat "$HOST_MHK_HOME/.mhk-home")"
+  echo "Kleio token:      $KLEIO_ADMIN_TOKEN"
+  echo "mhk use-tag:      $TAG"
+  echo "mhk local host:   ${MHK_HOST} "
+  echo "MHK URL:          http://${MHK_HOST}:$MHK_TOMCAT_PORT"
+  echo "Kleio URL:        http://${MHK_HOST}:$MHK_KLEIO_PORT"
+  echo "Portainer URL:    http://${MHK_HOST}:$PORTAINER_PORT"
+  #echo "Kleio debugger:   nc localhost $MHK_KLEIO_DEBUGGER_PORT"
+  echo "type mhk --help for more information"
+
+  if [ "$(pre_2019_install)" = "YES" ]; then
+    echo "========================================"
+    echo "NOTE: Pre-2019 mhk instalation detected!"
+    echo "NOTE: To migrate sources and databases do:"
+    echo "      mhk migrate --help"
+    echo "To stop this message, remove or rename mhk.properties in your your home dir"
+  fi
+  ;;
+"up" | "start")
+  cd "$HOST_MHK_HOME/app" || exit # we need this for docker-compose to read the .env file
+  if [ -z ${TAG} ]; then
+    echo "Pulling image tagged 'Latest'. Set TAG variable for other."
+    export TAG="latest"
+  else
+    echo "Using images tagged '$TAG'"
+  fi
+  echo "MHk serving ${MHK_HOSTS}"
+
+  docker-compose -p mhk up -d $2 $3 $4 $5 $6 $7 $8 $9
+  ;;
+"stop")
+  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk stop $2 $3 $4 $5 $6 $7 $8 $9
+  ;;
+"open")
+  sh "$HOST_MHK_HOME/app/manager" up mhk
+  case "$(test_os)" in
+  "windows" | "windows-home")
+    start http://${MHK_HOST}:8080/mhk
+    ;;
+  "mac")
+    open http://${MHK_HOST}:8080/mhk
+    ;;
+  *)
+    echo "open in browser: http://${MHK_HOST}:8080/mhk"
+    ;;
+  esac
+
+  ;;
+"portainer")
+  sh "$HOST_MHK_HOME/app/manager" up portainer
+  open http://${MHK_HOST}:9000
+  ;;
+"kleio")
+  sh "$HOST_MHK_HOME/app/manager" up kleio
+  open http://${MHK_HOST}:8088
+  ;;
+"services")
+  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk ps --services $2 $3 $4 $5 $6 $7 $8 $9
+  ;;
+"ps" | "status")
+  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk ps $2 $3 $4 $5 $6 $7 $8 $9
+  ;;
+"logs")
+  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk logs  $2 $3 $4 $5 $6 $7 $8 $9
+  ;;
+"config")
+  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk config $3 $4 $5 $6 $7 $8 $9
+  ;;
+
+"restart")
+  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk restart $2 $3 $4 $5 $6 $7 $8 $9
+  ;;
+
+  "update")
+  cp -f "${HOST_MHK_HOME}/app/manager" "${HOST_MHK_HOME}/app/manager.bak"
+  cp -f "${HOST_MHK_HOME}/app/scripts/host/manager-update.sh" "${HOST_MHK_HOME}/app/scripts/host/manager-update.bak"
+
+  if [ "$2" = "--help" ] || [ "$2" = "-h" ]; then
+    echo "mhk update [--local] [--force] [--help]"
+    echo "Updates current mhk installation, fetching more recent version from repository."
+    echo "--local       Use local images, do not fetch new ones from repository"
+    echo "--force       Stop services without asking (default asks confirmation)"
+    echo "--help or -h  Display this message"
+    exit 0
+  fi
+  if [ "$2" = "--force" ] || [ "$3" = "--force" ]; then
+    echo "Stopping services..."
+  else
+    echo "Update will stop running services."
+    printf "Confirm to stop running MHK services and updating (y/N): "
+    read -r answer
+    if [ "$answer" != "Y" ] && [ "$answer" != "y" ]; then
+      echo "Update cancelled"
+      exit 1
+    fi
+  fi
+  cd "${HOST_MHK_HOME}/app" || exit
+  echo ".... stopping..."
+  docker-compose -p mhk stop
+  echo "Continuing to update script" "$@"
+  . "${HOST_MHK_HOME}/app/scripts/host/manager-update.bak" "$@"
+  ;;
+
+"prune")
+  docker container prune -f
+  docker image prune -f
+  ;;
+"push")
+  cd "${HOST_MHK_HOME}/app" && docker-compose -p mhk push $2 $3 $4 $5 $6 $7 $8 $9
+  ;;
+"migrate")
+  echo "MHK migration from pre-2019 versions"
+  if [ "$(pre_2019_install)" = "NO" ]; then
+    echo "Error: no pre-2019 install detected"
+    echo "A file named mhk.properties should exist in the user home directory."
+  else
+    if [ "$current_os" = "windows-home" ]; then
+      USER=" "
+    else
+      USER="--user $(id -u):$(id -g)"
+    fi
+    # echo User:G $USER
+    $RUN_DOCKER_IT run --user $(id -u):$(id -g) --rm --name manager $USER \
+      -e HOST_MHK_HOME="$HOST_MHK_HOME" \
+      -e HOST_MHK_USER_HOME="$HOST_MHK_USER_HOME" \
+      -v /"$HOST_MHK_USER_HOME":/home/mhk \
+      -v /"$HOST_MHK_HOME":/mhk-home \
+      -it joaquimrcarvalho/mhk-manager:$TAG \
+      sh //mhk-home/app/scripts/container/manager-migrate.sh "$@"
+    # the double // on the line above is necessary when $RUN_DOCKER_IT is "winpty docker"
+
+    echo "To migrate your existing database from your HOST MySQL, start MySQL on your computer and type:"
+    echo "mhk db migrate"
+  fi
+  ;;
+
+"migrate-mariadb")
+  cat "${HOST_MHK_HOME}"/app/migrate_mysql_mariadb.txt
+  ;;
+
+"db" | "mysql" | "mariadb")
+  bash "${HOST_MHK_HOME}/app/scripts/host/manager-db.sh" "$@"
+  ;;
+
+"sources")
+  bash "${HOST_MHK_HOME}/app/scripts/host/manager-sources.sh" "$@"
+  ;;
+
+"report")
+  echo "MHK installation:  $HOSTNAME $(date)"
+  echo
+  bash "${HOST_MHK_HOME}/app/manager" version >/tmp/mhk_manager_version
+  grep -v -e '--help' /tmp/mhk_manager_version
+  echo
+  echo "======= USERS ======="
+  cd ${HOST_MHK_HOME}/users
+  for u in *; do
+    if [ -d "$u" ]; then
+      echo
+      echo "User: $u"
+      cat $u/conf/mhk_user.properties
+    fi
+  done
+  echo
+  echo "======= SOURCES ======="
+  cd ${HOST_MHK_HOME}/sources
+  for s in *; do
+    if [ -d "$s" ]; then
+      echo
+      cd $s
+      echo "Source: $s"
+      if git remote -v >/tmp/mhk_remote 2>/dev/null; then
+           cat /tmp/mhk_remote | sed 's/:\/\/[^:]*\(.......\)[^@]*@/:\/\/[token\1]@/'
+        if git fetch >/dev/null 2>/tmp/git_error; then
+          echo "Remote origin checked."
+        else
+          echo "Could not fetch remote:"
+          cat /tmp/git_error
+        fi
+        git branch
+        git status | grep -e 'branch'
+        if [ "$2" = "status" ]; then
+          git log --pretty=format:"%ad | %s [%an] %d" --date=short -n 5
+        fi
+        echo
+      else
+        echo "* Not under Git control"
+      fi
+      echo "Used by:"
+          grep -e mhk.sources.base.dir=sources/$s ../../users/*/conf/mhk_user.properties | sed 's/\.\.\/\.\.\/users\/\([a-z0-9_-]*\)\/.*/  \1/'
+      cd ..
+    fi
+  done
+
+  ;;
+
+  "user")
+  if [ "$current_os" = "windows" ] || [ "$current_os" = "windows-home" ]; then
+    USER=" "
+    HOST_MHK_HOME=$(cygpath -w -m "$HOST_MHK_HOME")
+  else
+    USER="--user $(id -u):$(id -g)"
+  fi
+  # echo User:G $USER
+  $RUN_DOCKER_IT  run --user $(id -u):$(id -g) --rm --name manager $USER \
+    -e HOST_MHK_HOME="$HOST_MHK_HOME" \
+    -e HOST_MHK_USER_HOME="$HOST_MHK_USER_HOME" \
+    -v /"$HOST_MHK_USER_HOME":/home/mhk \
+    -v /"$HOST_MHK_HOME":/mhk-home \
+    -it joaquimrcarvalho/mhk-manager:$TAG \
+    sh //mhk-home/app/scripts/container/manager-user.sh "$@"
+  # the double // on the line above is necessary when $RUN_DOCKER_IT is "winpty docker"
+
+  echo "You may need to stop and start MHK for changes to take effect."
+  ;;
+"set-var")
+  if [ "$#" -lt 4 ]; then
+    echo "usage: mhk set-var FILE VARIABLE VALUE"
+    echo " example: mhk set-var ~/.mhk KLEIO_SERVER_WORKERS 6"
+  else
+    replace_var_in_file "$2" "$3" "$4"
+  fi
+  ;;
+
+"use-tag")
+  if [ "$#" -lt 2 ]; then
+    echo "usage: mhk use-tag TAG"
+  else
+    replace_var_in_file "$HOST_MHK_HOME/app/.env" "TAG" "$2"
+    echo "MHK will update from the TAG $2"
+  fi
+  ;;
+
+"use-mariadb")
+  replace_var_in_file "$HOST_MHK_HOME/app/.env" "DATABASE_TYPE" "mariadb"
+  touch "${HOST_MHK_HOME}/system/db/mysql/data2"
+  echo "Your need to restart MHK for changes to take effect."
+  echo "To restart MHK, type: mhk stop && mhk start"
+  if [ -d "${HOST_MHK_HOME}/system/db/mysql/data" ]; then
+    echo "To migrate previous MySQL data to MariaDB, type:"
+    echo "mhk migrate-mariadb"
+  fi
+  ;;
+
+"use-mysql")
+  replace_var_in_file "$HOST_MHK_HOME/app/.env" "DATABASE_TYPE" "mysql"
+  echo "Your need to restart MHK for changes to take effect."
+  echo "To restart MHK, type: mhk stop && mhk start"
+  ;;
+
+
+"header-color")
+  if [ "$#" -lt 2 ]; then
+    echo "usage: mhk header-color COLOR"
+    echo
+    echo "For allowed values of COLOR see https://www.w3.org/wiki/CSS/Properties/color/keywords"
+  else
+    replace_var_in_file "$HOST_MHK_HOME/app/.env" "HEADER_BGCOLOR" "$2"
+    echo "MHK will now use $2 for header color"
+  fi
+  ;;
+
+"set-host")
+  if [ "$#" -lt 2 ]; then
+    echo "usage: mhk set-host LOCAL-HOST-NAME"
+    echo "system hostname:"
+    hostname
+  else
+    replace_var_in_file "$HOST_MHK_HOME/app/.env" "MHK_HOST" "$2"
+    echo "Local hostname registered as $2"
+  fi
+  ;;
+
+"--help")
+  cat "$HOST_MHK_HOME/app/manager_help.txt"
+  if [ $(pre_2019_install) = "YES" ]; then
+    echo "========================================"
+    echo "NOTE: Pre-2019 mhk instalation detected!"
+    echo "NOTE: To migrate sources and databases do:"
+    echo "      mhk migrate --help"
+    echo "To stop this message, remove or rename mhk.properties in your your home dir"
+    if [ -z "$MHK_DEBUG" ]; then
+      true
+    else
+      echo "MHK debug mode ON. To switch off type:"
+      echo "  export MHK_DEBUG="
+    fi
+
+  fi
+  ;;
+*)
+  echo " "
+  if [ "$#" -gt 0 ]; then
+    echo "ERROR: unknown command:" "$@"
+  fi
+  echo "Type mhk --help for more information"
+  ;;
+esac
+echo " "
+cd "$curdir"
+exit

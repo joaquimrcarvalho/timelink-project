@@ -1,0 +1,9 @@
+Usage:
+mhk user properties USER [COMMAND] [ARGS]
+mhk user properties --help
+mhk user properties --help-names list possible prop names
+
+Commands:
+set PROP VALUE                  set PROP to VALUE
+remove PROP                     remove PROP from USER
+list                            list USER properties (default command)

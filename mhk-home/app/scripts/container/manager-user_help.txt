@@ -1,0 +1,10 @@
+Usage:
+mhk user [COMMAND] [ARGS]
+mhk user --help         print this message
+mhk user COMMAND --help print help message for COMMAND
+
+Commands:
+create                  create a new user
+password                change user password
+properties              list, set and remove properties
+token USER [--remove]   generate and remove login token for USER
