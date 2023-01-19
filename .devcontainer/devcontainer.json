@@ -18,7 +18,7 @@
 				"ms-vscode-remote.vscode-remote-extensionpack"
 			]
 		}
-	}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [8080, 8088, 9000, 3367]

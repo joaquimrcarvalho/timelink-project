@@ -328,3 +328,4 @@ mhk-home/system/db/mysql/data2/sys/x@0024waits_by_user_by_latency.frm
 mhk-home/system/db/mysql/data2/sys/x@0024waits_global_by_latency.frm
 mhk-home/system/db/mysql/init/mhk__users_database_create.sql
 mhk-home/kleio/logs/kleio_service.log
+mhk-home/system/conf/kleio/token_db
