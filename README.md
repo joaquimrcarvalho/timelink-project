@@ -53,7 +53,7 @@ the scenes) creates the virtual machine.
 # TODO
 * quando estabilizar remover .git e renomear repo para timelink-mhk-install
 * a use tag deve ser latest
-* o set host deve ser o nome que no noip está ligado a a local host
+* o set host deve ser o nome que no noip está ligado a a local host local.timelink-server.net
 * copiar a demo-sources para o project mhk para estarem no build initial
 * verificar que os links das listas do mhk apontam correctamente para o vs code
 * testar como se comporta o git numa instalação quando o repositório
