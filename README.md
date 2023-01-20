@@ -56,3 +56,5 @@ the scenes) creates the virtual machine.
 * o set host deve ser o nome que no noip está ligado a a local host
 * copiar a demo-sources para o project mhk para estarem no build initial
 * verificar que os links das listas do mhk apontam correctamente para o vs code
+* testar como se comporta o git numa instalação quando o repositório
+de origem é atualizado
