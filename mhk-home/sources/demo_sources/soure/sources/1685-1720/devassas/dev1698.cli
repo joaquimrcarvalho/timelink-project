@@ -1,0 +1,107 @@
+kleio$gacto2.str/translations=19
+   fonte$dev1698/1698/devassa/loc=aucIIId,1,4,4,48
+
+      devassa$devassa1698/7/6/1698/visdor=manuel soares gouveira/secretario=jeronimo pimentel/fol=?/obs=em muito mau estado
+
+         testo$manuel gomes/id=t1698-1
+            ls$ec/c
+            ls$profissao/?#ilegivel
+            ls$residencia/novos
+            ls$idade/58
+            ls$assina/b
+
+            acusa$c1698-alexandre-francisca/literal=ela pariu uma crianca ha um ano + ou -/id=t1698-1-obj1
+
+               caso$c1698-alexandre-francisca/amanc
+
+                  acusado$alexandre gomes/id=a1698-1
+                     ls$ec/s
+                     ls$freguesia/pombal?
+                     ls$residencia/paleao
+
+                  acusada$francisca/id=a1698-2
+                     ls$alcunha/serrana
+                     ls$ec/c#marido ausente
+                     ls$residencia/paleao
+                     ls$naturalidade/santiago da guarda#segundo a testemunha francisco rodrigues. Isso explicaria a alcunha "serrana"
+
+            acusa$c1698-maria-folha-manuel/literal=teriam ido viver para condeixa-a-nova/id=t1698-1-obj2
+
+               caso$c1698-maria-folha-manuel/amanc
+
+                  acusada$maria da folha/id=a1698-3/obs=teria ido para Condeixa-a-Nova por volta de 1698 ver devassa de 1698
+                     ls$ec/s
+
+                  acusado$manuel neto/id=a1698-4
+                     ls$profissao/pedreiro
+                     ls$ec/c
+                     ls$freguesia/ansiao#teria ido residir para ansiao por volta de 1698
+
+         testo$antonio ferreira/id=t1698-2
+            ls$ec/c
+            ls$profissao/vive de seu trabalho
+            ls$residencia/paleao
+            ls$idade/45
+            ls$assina/+
+
+            acusa$c1698-alexandre-francisca/id=t1698-2-obj3
+
+         testo$manuel ferreira/id=t1698-3
+            ls$ec/c
+            ls$profissao/sapateiro
+            ls$residencia/soure
+            ls$idade/27
+            ls$assina/b
+
+            acusa$c1698-maria-folha-manuel/id=t1698-3-obj4
+
+         testo$antonio lopes/id=t1698-4
+            ls$profissao/alfaiate
+            ls$residencia/soure
+            ls$idade/27
+            ls$assina/b
+
+            acusa$c1698-maria-folha-manuel/id=t1698-4-obj5
+
+         testo$francisco rodrigues/id=t1698-5
+            ls$ec/c
+            ls$residencia/paleao
+            ls$profissao/trabalhador#ocorre no mesmo documento com "vive de seu trabalho"
+            ls$idade/45
+            ls$assina/m
+
+            acusa$c1698-alexandre-francisca/diz que ela veio de santiago da guarda/id=t1698-5-obj6
+
+         testo$mateus rodrigues/id=t1698-6
+            ls$ec/c
+            ls$residencia/soure
+            ls$profissao/cacador de perdizes
+            ls$idade/60
+            ls$assina/m
+
+            acusa$c1698-maria-ruiva/literal=pariu tres vezes, a ultima ha um ano, sem se saber quem e' o pai/id=t1698-6-obj7
+
+               caso$c1698-maria-ruiva/dev
+
+                  acusada$maria ruiva/id=a1698-5
+                     ls$ec/s
+                     ls$residencia/soure
+
+         testa$isabel mendes/id=t1698-7
+            ls$ec/s
+            ls$residencia/soure
+            ls$idade/40
+
+            pai$? fernandes/id=t1698-7-per1
+               ls$morto/antes
+
+            acusa$c1698-maria-ruiva/id=t1698-7-obj8
+
+         testa$maria de cuova?/id=t1698-8
+            rel$parentesco/mulher/matias rodrigues/t1698-8b
+
+            referido$matias rodrigues/id=t1698-8b/obs=talvez seja t1698-6
+               ls$ec/c
+               ls$profissao/cacador
+
+            acusa$c1698-maria-ruiva/id=t1698-8-obj9

@@ -1,0 +1,47 @@
+kleio$gacto2.str/authorities/Generated from database soure_editor by user soure, file date: +2021-05-31 Timestamp:2021-05-31T14:37:14.877Z/translations=1
+
+   identifications$real-entities-soure-regina/Real entities, including real persons and real objects/dbase=soure_editor/user=soure-regina/date=20210531/mode=backup
+
+      rperson$rp-924/francisca rodrigues/f/status=N
+
+         occ$c1711.6-4/id=rp-924-occ1
+
+         occ$bn17021712-per2/id=rp-924-occ2
+
+         occ$b1718.74-per1-per3/id=rp-924-occ3
+
+         occ$b1719.107-per5/id=rp-924-occ4
+
+      rperson$rp-920/joao mendes francisco/m/status=N
+
+         occ$c1722.2-per1/id=rp-920-occ1
+
+         occ$b1726.28-per1/id=rp-920-occ2
+
+         occ$b1728.42-per1/id=rp-920-occ3
+
+         occ$b1731.28-per1/id=rp-920-occ4
+
+      rperson$rp-922/luis jose/m/status=N
+
+         occ$b1718.87-per3/id=rp-922-occ1
+
+         occ$b1720.65-per3/id=rp-922-occ2
+
+      rperson$rp-921/mariana do espirito santo/f/status=N
+
+         occ$c1722.2-per4/id=rp-921-occ1
+
+         occ$b1726.28-per2/id=rp-921-occ2
+
+         occ$b1728.42-per2/id=rp-921-occ3
+
+         occ$b1731.28-per2/id=rp-921-occ4
+
+      rperson$rp-925/tome velho/m/status=N
+
+         occ$br02101718/id=rp-925-occ1
+
+         occ$bpad27031720b/id=rp-925-occ2
+
+         occ$bppad02091720/id=rp-925-occ3

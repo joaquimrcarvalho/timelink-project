@@ -1,0 +1,733 @@
+kleio$gacto2.str/authorities/Generated from database soure_editor by user soure, file date: +2021-05-31 Timestamp:2021-05-31T14:37:05.647Z/translations=1
+
+   identifications$real-entities-soure-editor/Real entities, including real persons and real objects/dbase=soure_editor/user=soure-editor/date=20210531/mode=backup
+
+      rperson$rp-402/alexandre mendes/m/status=N
+
+         occ$amz32-per18/id=rp-402-occ1
+
+         occ$amz34-per18/id=rp-402-occ2
+
+         occ$amz48-per15/id=rp-402-occ3
+
+         occ$amz49-per7/id=rp-402-occ4
+
+      rperson$rp-205/antonia carvalha/f/status=N
+
+         occ$br04081720/id=rp-205-occ1
+
+         occ$br04081720/id=rp-205-occ2
+
+         occ$b1720.78-per6/id=rp-205-occ3
+
+         occ$on30101720/id=rp-205-occ4
+
+         occ$1721-b59-antonia/id=rp-205-occ5
+
+         occ$1721-o45-antonia/id=rp-205-occ6
+
+         occ$1721-o75-antonia/id=rp-205-occ7
+
+         occ$1721-b111-antonia/id=rp-205-occ8
+
+         occ$1721-o102-antonia/id=rp-205-occ9
+
+         occ$1723-o3-antonia/id=rp-205-occ10
+
+         occ$c1716.21-per3/id=rp-205-occ11
+
+      rperson$rp-387/antonia carvalho/f/status=N
+
+         occ$b1719.7-per6/id=rp-387-occ1
+
+         occ$br16011719/id=rp-387-occ2
+
+         occ$b1719.46-per6/id=rp-387-occ3
+
+         occ$b1719.47-per5/id=rp-387-occ4
+
+         occ$b1719.86-per5/id=rp-387-occ5
+
+      rperson$rp-209/antonio lourenco/m/status=N
+
+         occ$amz32-per13/id=rp-209-occ1
+
+         occ$amz34-per13/id=rp-209-occ2
+
+         occ$amz48-per13/id=rp-209-occ3
+
+         occ$amz49-per5/id=rp-209-occ4
+
+      rperson$rp-23/antonio manhos/m/status=N
+
+         occ$c40-9/id=rp-23-occ1
+
+         occ$c5-7/id=rp-23-occ2
+
+         occ$c83-8/id=rp-23-occ3
+
+      rperson$rp-274/antonio manhos/m/status=N
+
+         occ$b1705.50-per1/id=rp-274-occ1
+
+         occ$amabreu/id=rp-274-occ2
+
+         occ$bn03061706-per1/id=rp-274-occ3
+
+         occ$b1709.22-per6/id=rp-274-occ4
+
+         occ$b1709.37-per1-per2/id=rp-274-occ5
+
+         occ$b1718.10-per3/id=rp-274-occ6
+
+         occ$b1718.96-per4/id=rp-274-occ7
+
+      rperson$rp-211/bartolomeu de almeida/m/status=N
+
+         occ$o1720-4095-per1/id=rp-211-occ1
+
+         occ$o1720-4095-per1/id=rp-211-occ2
+
+      rperson$rp-202/bernardo de santo antonio/m/status=N
+
+         occ$b1714.48-per4/id=rp-202-occ1
+
+         occ$b1714.57-per3/id=rp-202-occ2
+
+         occ$b1715.25-per4/id=rp-202-occ3
+
+         occ$bpad13101715/id=rp-202-occ4
+
+         occ$b1731.70-per3/id=rp-202-occ5
+
+      rperson$rp-234/domingos goncalves/m/status=N
+
+         occ$b1697.17-per4/id=rp-234-occ1
+
+         occ$b1699.36-per4/id=rp-234-occ2
+
+         occ$b1700.8-per6/id=rp-234-occ3
+
+         occ$b1700.62-per4/id=rp-234-occ4
+
+         occ$b1701.9-per4/id=rp-234-occ5
+
+         occ$b1702.72-per4/id=rp-234-occ6
+
+         occ$b1709.23-per3/id=rp-234-occ7
+
+         occ$c1693.31-per8/id=rp-234-occ8
+
+         occ$c1693.32-per6/id=rp-234-occ9
+
+         occ$c1693.34-per8/id=rp-234-occ10
+
+         occ$c1693.35-per8/id=rp-234-occ11
+
+      rperson$rp-150/feliciana goncalves/f/status=N
+
+         occ$b1715.53-per1-per3/id=rp-150-occ1
+
+         occ$bmae07071715/id=rp-150-occ2
+
+      rperson$rp-284/feliciana goncalves/f/status=N
+
+         occ$b1707.69-per1-per3/id=rp-284-occ1
+
+         occ$bmae12091707/id=rp-284-occ2
+
+      rperson$rp-325/henrique barbosa canais/m/status=N
+
+         occ$bn08061718-per1/id=rp-325-occ1
+
+      rperson$rp-400/ines galvao de melo/f/status=N
+
+         occ$c1693.27-per4/id=rp-400-occ1
+
+         occ$b1696.72-per1-per3/id=rp-400-occ2
+
+         occ$b1699.39-per1-per3/id=rp-400-occ3
+
+         occ$b1700.70-per1-per3/id=rp-400-occ4
+
+         occ$b1703.16-per1-per3/id=rp-400-occ5
+
+         occ$b1704.102-per1-per3/id=rp-400-occ6
+
+      rperson$rp-440/joao da costa de vasconcelos/m/status=N
+
+         occ$c24-8/id=rp-440-occ1
+
+         occ$c12-7/id=rp-440-occ2
+
+         occ$c25-8/id=rp-440-occ3
+
+         occ$c43-7/id=rp-440-occ4
+
+         occ$b1714.28-per4/id=rp-440-occ5
+
+         occ$c1714.5-per7/id=rp-440-occ6
+
+         occ$b1715.18-per4/id=rp-440-occ7
+
+         occ$b1715.78-per4/id=rp-440-occ8
+
+         occ$b1715.94-per1-per2/id=rp-440-occ9
+
+         occ$c1686.7-per7/id=rp-440-occ10
+
+         occ$c1687.13-per7/id=rp-440-occ11
+
+         occ$o1713-3504-per1-per2/id=rp-440-occ12
+
+         occ$o1715-3616-per1-per2/id=rp-440-occ13
+
+         occ$c1688.4-per7/id=rp-440-occ14
+
+         occ$o1716-3799-per1-per2/id=rp-440-occ15
+
+         occ$o1720-4133-per1-per2/id=rp-440-occ16
+
+         occ$o1720-4143-per1-per2/id=rp-440-occ17
+
+         occ$c1689.20-per7/id=rp-440-occ18
+
+         occ$b1695.62-per4/id=rp-440-occ19
+
+         occ$b1697.1-per4/id=rp-440-occ20
+
+         occ$b1697.36-per4/id=rp-440-occ21
+
+         occ$b1699.64-per5/id=rp-440-occ22
+
+         occ$b1702.16-per4/id=rp-440-occ23
+
+         occ$b1702.19-per4/id=rp-440-occ24
+
+         occ$b1703.34-per4/id=rp-440-occ25
+
+         occ$b1706.20-per1-per2/id=rp-440-occ26
+
+         occ$b1706.69-per3/id=rp-440-occ27
+
+         occ$b1709.86-per4/id=rp-440-occ28
+
+         occ$b1710.84-per4/id=rp-440-occ29
+
+         occ$b1713.3-per6/id=rp-440-occ30
+
+         occ$b1713.7-per6/id=rp-440-occ31
+
+         occ$b1713.12-per4/id=rp-440-occ32
+
+         occ$b1713.36-per6/id=rp-440-occ33
+
+         occ$b1713.88-per1-per2/id=rp-440-occ34
+
+         occ$b1713.106-per4/id=rp-440-occ35
+
+         occ$b1718.5-per4/id=rp-440-occ36
+
+         occ$b1718.27-per4/id=rp-440-occ37
+
+         occ$bn08051718c-per1/id=rp-440-occ38
+
+         occ$b1718.72-per4/id=rp-440-occ39
+
+         occ$c1693.36-per7/id=rp-440-occ40
+
+         occ$b1685.6-per4/id=rp-440-occ41
+
+         occ$b1685.27b-per3/id=rp-440-occ42
+
+         occ$b1685.29-per4/id=rp-440-occ43
+
+         occ$b1686.28-per4/id=rp-440-occ44
+
+         occ$b1686.44-per4/id=rp-440-occ45
+
+         occ$ro18011687/id=rp-440-occ46
+
+         occ$b1687.11-per4/id=rp-440-occ47
+
+         occ$ro27041687/id=rp-440-occ48
+
+         occ$b1687.26-per4/id=rp-440-occ49
+
+         occ$b1687.87-per4/id=rp-440-occ50
+
+         occ$b1688.4-per4/id=rp-440-occ51
+
+         occ$b1688.28-per4/id=rp-440-occ52
+
+         occ$b1689.34-per4/id=rp-440-occ53
+
+         occ$b1689.44-per4/id=rp-440-occ54
+
+         occ$b1689.63-per4/id=rp-440-occ55
+
+         occ$b1689.87-per4/id=rp-440-occ56
+
+         occ$b1689.91-per1/id=rp-440-occ57
+
+         occ$b1690.29-per4/id=rp-440-occ58
+
+         occ$b1690.51-per4/id=rp-440-occ59
+
+         occ$b1690.69-per4/id=rp-440-occ60
+
+         occ$b1690.77-per4/id=rp-440-occ61
+
+         occ$c1691.1-per7/id=rp-440-occ62
+
+         occ$c1691.2-per7/id=rp-440-occ63
+
+         occ$b1691.60-per4/id=rp-440-occ64
+
+         occ$b1691.62-per4/id=rp-440-occ65
+
+         occ$br29091691b/id=rp-440-occ66
+
+         occ$b1691.76-per2/id=rp-440-occ67
+
+         occ$b1691.79-per4/id=rp-440-occ68
+
+         occ$b1692.10-per6/id=rp-440-occ69
+
+         occ$b1692.44-per7/id=rp-440-occ70
+
+         occ$b1692.47-per6/id=rp-440-occ71
+
+         occ$b1692.73-per4/id=rp-440-occ72
+
+         occ$b1698.65-per6/id=rp-440-occ73
+
+         occ$b1698.108-per1-per1-9/id=rp-440-occ74
+
+         occ$b1699.30-per1-per2/id=rp-440-occ75
+
+         occ$nm46-per1/id=rp-440-occ76
+
+         occ$b1702.82-per1-per2/id=rp-440-occ77
+
+         occ$amz56-per7/id=rp-440-occ78
+
+         occ$c1710.2-7/id=rp-440-occ79
+
+         occ$amz58-per1/id=rp-440-occ80
+
+         occ$c1712.14-1/id=rp-440-occ81
+
+         occ$o1713-3504-per1-per2/id=rp-440-occ82
+
+         occ$o1715-3616-per1-per2/id=rp-440-occ83
+
+         occ$amz61-per11/id=rp-440-occ84
+
+         occ$o1716-3799-per1-per2/id=rp-440-occ85
+
+         occ$br04101716/id=rp-440-occ86
+
+         occ$b1716.87-per1-per2/id=rp-440-occ87
+
+         occ$b1717.24-per4/id=rp-440-occ88
+
+         occ$b1717.69-per4/id=rp-440-occ89
+
+         occ$b1717.88-per4/id=rp-440-occ90
+
+         occ$b1719.43-per6/id=rp-440-occ91
+
+         occ$b1720.29-per4/id=rp-440-occ92
+
+         occ$o1720-4133-per1-per2/id=rp-440-occ93
+
+         occ$bn03081720-per1/id=rp-440-occ94
+
+         occ$o1720-4143-per1-per2/id=rp-440-occ95
+
+         occ$b1720.86-per4/id=rp-440-occ96
+
+         occ$b1720.87-per4/id=rp-440-occ97
+
+         occ$o1721.36-per1-per2/id=rp-440-occ98
+
+         occ$o1723.76-per2/id=rp-440-occ99
+
+         occ$c1724.24-per7/id=rp-440-occ100
+
+         occ$b1726.27-per4/id=rp-440-occ101
+
+         occ$b1726.31-per4/id=rp-440-occ102
+
+         occ$1726-b74-joao/id=rp-440-occ103
+
+         occ$b1727.22-per5/id=rp-440-occ104
+
+         occ$1727-b18-joao/id=rp-440-occ105
+
+         occ$b1727.64-per3/id=rp-440-occ106
+
+         occ$b1728.75-per5/id=rp-440-occ107
+
+      rperson$rp-427/joao rodrigues figueiredo/m/status=N
+
+         occ$c1692-joao-rodrigues-isabel-joao-cons-per15/id=rp-427-occ1
+
+      rperson$rp-269/jorge de meneses/m/status=N
+
+         occ$b1705.13-per4/id=rp-269-occ1
+
+         occ$c113-7-jor/id=rp-269-occ2
+
+         occ$b1705.81-per4/id=rp-269-occ3
+
+         occ$b1706.20-per4/id=rp-269-occ4
+
+         occ$b1706.29-per4/id=rp-269-occ5
+
+         occ$b1706.35-per4/id=rp-269-occ6
+
+      rperson$rp-145/jose da cunha e sa/m/status=N
+
+         occ$c1718.15-per2/id=rp-145-occ1
+
+         occ$c180-7/id=rp-145-occ2
+
+         occ$o1708-3119-per1-per2/id=rp-145-occ3
+
+         occ$b1695.11-per4/id=rp-145-occ4
+
+         occ$b1695.35-per1-per3/id=rp-145-occ5
+
+         occ$b1695.84-per4/id=rp-145-occ6
+
+         occ$b1695.87-per4/id=rp-145-occ7
+
+         occ$b1695.92-per4/id=rp-145-occ8
+
+         occ$b1696.72-per1-per2/id=rp-145-occ9
+
+         occ$b1699.39-per1-per2/id=rp-145-occ10
+
+         occ$b1700.70-per1-per2/id=rp-145-occ11
+
+         occ$b1703.16-per1-per2/id=rp-145-occ12
+
+         occ$b1704.102-per1-per2/id=rp-145-occ13
+
+         occ$b1705.62-per4/id=rp-145-occ14
+
+         occ$b1706.66-per1-per2/id=rp-145-occ15
+
+         occ$b1712.79-per1-per2/id=rp-145-occ16
+
+         occ$b1718.90-per5/id=rp-145-occ17
+
+         occ$c1693.27-per1/id=rp-145-occ18
+
+      rperson$rp-289/luis barbosa/m/status=N
+
+         occ$b1708.11-per4/id=rp-289-occ1
+
+         occ$c17-7-luis/id=rp-289-occ2
+
+         occ$b1713.44-per4/id=rp-289-occ3
+
+         occ$b1718.12-per4/id=rp-289-occ4
+
+         occ$b1718.18-per6/id=rp-289-occ5
+
+         occ$b1718.88-per1-per2/id=rp-289-occ6
+
+      rperson$rp-484/luis manhos/m/status=N
+
+         occ$b1706.51d-per4/id=rp-484-occ1
+
+         occ$lmabreu/id=rp-484-occ2
+
+         occ$b1706.51h-per5/id=rp-484-occ3
+
+         occ$b1706.94-per1-per2/id=rp-484-occ4
+
+         occ$b1706.102-per4/id=rp-484-occ5
+
+         occ$b1707.34-per4/id=rp-484-occ6
+
+         occ$b1707.52-per4/id=rp-484-occ7
+
+         occ$b1707.56-per4/id=rp-484-occ8
+
+         occ$b1707.76-per4/id=rp-484-occ9
+
+         occ$b1707.83-per4/id=rp-484-occ10
+
+         occ$b1708.7-per6/id=rp-484-occ11
+
+         occ$b1708.9-per5/id=rp-484-occ12
+
+         occ$b1708.12-per4/id=rp-484-occ13
+
+         occ$b1708.98-per6/id=rp-484-occ14
+
+         occ$b1708.99-per1-per2/id=rp-484-occ15
+
+         occ$b1709.36-per6/id=rp-484-occ16
+
+         occ$b1709.53-per4/id=rp-484-occ17
+
+         occ$b1709.58-per4/id=rp-484-occ18
+
+         occ$b1710.12-per5/id=rp-484-occ19
+
+         occ$b1710.19-per6/id=rp-484-occ20
+
+         occ$b1710.29-per5/id=rp-484-occ21
+
+         occ$b1710.42-per5/id=rp-484-occ22
+
+         occ$b1710.47-per4/id=rp-484-occ23
+
+         occ$b1710.74-per4/id=rp-484-occ24
+
+         occ$b1710.98-per4/id=rp-484-occ25
+
+         occ$b1711.31-per4/id=rp-484-occ26
+
+         occ$b1711.40-per5/id=rp-484-occ27
+
+         occ$b1711.53-per3/id=rp-484-occ28
+
+         occ$b1711.71-per1-per2/id=rp-484-occ29
+
+         occ$b1711.98-per6/id=rp-484-occ30
+
+         occ$b1711.110-per4/id=rp-484-occ31
+
+         occ$b1712.35-per4/id=rp-484-occ32
+
+         occ$b1712.68-per4/id=rp-484-occ33
+
+         occ$b1713.8-per6/id=rp-484-occ34
+
+         occ$b1714.41-per4/id=rp-484-occ35
+
+         occ$b1714.64-per4/id=rp-484-occ36
+
+         occ$b1718.7-per6/id=rp-484-occ37
+
+         occ$b1718.49-per5/id=rp-484-occ38
+
+         occ$b1718.70-per4/id=rp-484-occ39
+
+         occ$b1718.80-per5/id=rp-484-occ40
+
+         occ$b1705.79-per6/id=rp-484-occ41
+
+         occ$b1705.83-per6/id=rp-484-occ42
+
+         occ$b1705.98-per6/id=rp-484-occ43
+
+      rperson$rp-275/manuel soares coelho/m/status=N
+
+         occ$b1706.3-per4/id=rp-275-occ1
+
+         occ$mscoelho/id=rp-275-occ2
+
+         occ$b1706.32-per1-per2/id=rp-275-occ3
+
+         occ$b1706.96-per6/id=rp-275-occ4
+
+         occ$b1707.53-per6/id=rp-275-occ5
+
+         occ$b1708.7-per4/id=rp-275-occ6
+
+         occ$b1708.19-per1-per2/id=rp-275-occ7
+
+         occ$b1709.55-per2/id=rp-275-occ8
+
+         occ$b1709.86-per6/id=rp-275-occ9
+
+         occ$b1710.79-per4/id=rp-275-occ10
+
+         occ$bn13101710-per1/id=rp-275-occ11
+
+         occ$b1711.71-per6/id=rp-275-occ12
+
+         occ$b1712.16-per1-per2/id=rp-275-occ13
+
+         occ$b1712.38-per4/id=rp-275-occ14
+
+         occ$b1712.56-per4/id=rp-275-occ15
+
+         occ$b1712.74-per5/id=rp-275-occ16
+
+         occ$b1713.43-per4/id=rp-275-occ17
+
+         occ$b1714.81-per4/id=rp-275-occ18
+
+         occ$b1718.98-per5/id=rp-275-occ19
+
+         occ$b1718.104-per5/id=rp-275-occ20
+
+      rperson$rp-184/maria ferreira/f/status=N
+
+         occ$bmae02051720/id=rp-184-occ1
+
+         occ$b1720.36-per1-per3/id=rp-184-occ2
+
+      rperson$rp-270/mariana/f/status=N
+
+         occ$b1705.13-per5/id=rp-270-occ1
+
+         occ$c113-7-mar/id=rp-270-occ2
+
+         occ$b1705.31-per5/id=rp-270-occ3
+
+         occ$b1706.20-per5/id=rp-270-occ4
+
+         occ$b1706.35-per5/id=rp-270-occ5
+
+         occ$b1707.4-per5/id=rp-270-occ6
+
+         occ$b1707.7-per5/id=rp-270-occ7
+
+      rperson$rp-288/mariana/f/status=N
+
+         occ$b1709.36-per5/id=rp-288-occ1
+
+         occ$b1709.58-per5/id=rp-288-occ2
+
+         occ$b1712.68-per5/id=rp-288-occ3
+
+         occ$b1713.8-per5/id=rp-288-occ4
+
+         occ$b1718.49-per6/id=rp-288-occ5
+
+      rperson$rp-43/mateus dias/m/status=N
+
+         occ$c136-2/id=rp-43-occ1
+
+         occ$c59-5/id=rp-43-occ2
+
+      rperson$rp-438/mateus manhos de abreu/m/status=N
+
+         occ$amz13-per13/id=rp-438-occ1
+
+         occ$b1697.84-per7/id=rp-438-occ2
+
+         occ$amz46-per14/id=rp-438-occ3
+
+      rperson$rp-206/miguel ferreira/m/status=N
+
+         occ$b1720.32-per4/id=rp-206-occ1
+
+         occ$b1720.46-per6/id=rp-206-occ2
+
+         occ$o1721.45-per2/id=rp-206-occ3
+
+         occ$o1721.75-per2/id=rp-206-occ4
+
+         occ$b1721.111-per6/id=rp-206-occ5
+
+         occ$o1721.102-per3/id=rp-206-occ6
+
+         occ$o1723.3-per3/id=rp-206-occ7
+
+      rperson$rp-149/pedro rodrigues/m/status=N
+
+         occ$b1715.53-per1-per2/id=rp-149-occ1
+
+         occ$bpai07071715/id=rp-149-occ2
+
+      rperson$rp-283/pedro rodrigues/m/status=N
+
+         occ$b1707.69-per1-per2/id=rp-283-occ1
+
+         occ$bpai12091707/id=rp-283-occ2
+
+      rperson$rp-263/rodrigo/m/status=N
+
+         occ$b1704.51-per1/id=rp-263-occ1
+
+         occ$b1705.52-per4/id=rp-263-occ2
+
+         occ$b1705.64-per4/id=rp-263-occ3
+
+         occ$b1706.53-per1/id=rp-263-occ4
+
+         occ$b1707.47-per4/id=rp-263-occ5
+
+         occ$b1708.100-per4/id=rp-263-occ6
+
+         occ$b1709.8-per4/id=rp-263-occ7
+
+         occ$b1709.16-per4/id=rp-263-occ8
+
+         occ$b1709.100-per4/id=rp-263-occ9
+
+         occ$b1710.52-per4/id=rp-263-occ10
+
+         occ$b1710.101-per4/id=rp-263-occ11
+
+         occ$b1713.5-per4/id=rp-263-occ12
+
+         occ$b1714.5-per4/id=rp-263-occ13
+
+         occ$b1714.9-per4/id=rp-263-occ14
+
+         occ$b1714.37-per4/id=rp-263-occ15
+
+         occ$b1714.42-per4/id=rp-263-occ16
+
+         occ$b1714.66-per4/id=rp-263-occ17
+
+         occ$b1718.8-per3/id=rp-263-occ18
+
+         occ$b1718.56-per3/id=rp-263-occ19
+
+      rperson$rp-103/rodrigo homem/m/status=N
+
+         occ$c1708.24-8/id=rp-103-occ1
+
+         occ$c1708.23-8/id=rp-103-occ2
+
+         occ$c1708.27-8/id=rp-103-occ3
+
+      rperson$rp-3/sebastiao soares coelho/m/status=N
+
+         occ$c1693.39-per7/id=rp-3-occ1
+
+         occ$sscoelho/id=rp-3-occ2
+
+         occ$c1694.23-per2/id=rp-3-occ3
+
+         occ$o1708-3139-per1/id=rp-3-occ4
+
+      rperson$rp-76/simao afonso/m/status=N
+
+         occ$c279-9/id=rp-76-occ1
+
+         occ$c278-9/id=rp-76-occ2
+
+      rperson$rp-524/teresa de jesus/f/status=N
+
+         occ$c1708.22-4/id=rp-524-occ1
+
+         occ$b1709.90-per1-per3/id=rp-524-occ2
+
+         occ$b1711.81-per4/id=rp-524-occ3
+
+      rperson$rp-321/tome velho/m/status=N
+
+         occ$b1714.13-per6/id=rp-321-occ1
+
+         occ$tvelho/id=rp-321-occ2
+
+      rperson$rp-436/tome velho/m/status=N
+
+         occ$amz12-per19/id=rp-436-occ1
+
+         occ$amz46-per12/id=rp-436-occ2
+
+         occ$amz48-per17/id=rp-436-occ3
