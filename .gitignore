@@ -5,3 +5,5 @@ mhk-home/system/db/mysql/data/
 mhk-home/system/db/mhk/
 mhk-home/kleio
 mhk-home/system/conf/kleio/token_db
+.DS_Store
+.vscode/settings.json
