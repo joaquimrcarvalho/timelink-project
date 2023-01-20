@@ -24,7 +24,7 @@
 	"forwardPorts": [8080, 8088, 9000, 3367],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "cd mhk-home; . ./mhk-home/app/scripts/host/manager-init.sh"
+	"postCreateCommand": "cd mhk-home; . ./app/scripts/host/manager-init.sh"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
