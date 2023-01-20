@@ -1,5 +1,6 @@
 mhk-home/system/conf/kleio/.bootstrap_token
-mhk-home/system/logs
+mhk-home/system/logs/kleio/*
+mhk-home/system/logs/tomcat/*
 mhk-home/system/db/mysql/data2/
 mhk-home/system/db/mysql/data/
 mhk-home/system/db/mhk/
