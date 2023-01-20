@@ -271,7 +271,7 @@ if [ -z ${MHK_HOSTS} ]; then
 fi
 
 $(replace_var_in_file "$HOST_MHK_USER_HOME/.mhk" "kleio_url" "http://${MHK_HOST}:$MHK_KLEIO_PORT") >/dev/null
-$(replace_var_in_file "$HOST_MHK_USER_HOME/.mhk" "mhk_url" "http://${MHK_HOST}:$MHK_TOMCAT_PORT") >/dev/null
+$(replace_var_in_file "$HOST_MHK_USER_HOME/.mhk" "mhk_url" "http://${MHK_HOST}:$MHK_TOMCAT_PORT")/mhk >/dev/null
 $(replace_var_in_file "$HOST_MHK_USER_HOME/.mhk" "portainer_url" "http://${MHK_HOST}:$PORTAINER_PORT") >/dev/null
 
 export current_os
@@ -298,7 +298,7 @@ case "$1" in
   echo "Kleio token:      $KLEIO_ADMIN_TOKEN"
   echo "mhk use-tag:      $TAG"
   echo "mhk local host:   ${MHK_HOST} "
-  echo "MHK URL:          http://${MHK_HOST}:$MHK_TOMCAT_PORT"
+  echo "MHK URL:          http://${MHK_HOST}:${MHK_TOMCAT_PORT}/mhk"
   echo "Kleio URL:        http://${MHK_HOST}:$MHK_KLEIO_PORT"
   echo "Portainer URL:    http://${MHK_HOST}:$PORTAINER_PORT"
   #echo "Kleio debugger:   nc localhost $MHK_KLEIO_DEBUGGER_PORT"

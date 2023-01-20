@@ -313,7 +313,7 @@ case "$1" in
   fi
   ;;
 "up" | "start")
-  cd "$HOST_MHK_HOME/app" || exit # we need this for docker-compose to read the .env file
+  cd "$HOST_MHK_HOME/app" || exit # we need this for docker compose to read the .env file
   if [ -z ${TAG} ]; then
     echo "Pulling image tagged 'Latest'. Set TAG variable for other."
     export TAG="latest"
@@ -322,10 +322,10 @@ case "$1" in
   fi
   echo "MHk serving ${MHK_HOSTS}"
 
-  docker-compose -p mhk up -d $2 $3 $4 $5 $6 $7 $8 $9
+  docker compose -p mhk up -d $2 $3 $4 $5 $6 $7 $8 $9
   ;;
 "stop")
-  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk stop $2 $3 $4 $5 $6 $7 $8 $9
+  cd "$HOST_MHK_HOME/app" && docker compose -p mhk stop $2 $3 $4 $5 $6 $7 $8 $9
   ;;
 "open")
   sh "$HOST_MHK_HOME/app/manager" up mhk
@@ -351,20 +351,20 @@ case "$1" in
   open http://${MHK_HOST}:8088
   ;;
 "services")
-  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk ps --services $2 $3 $4 $5 $6 $7 $8 $9
+  cd "$HOST_MHK_HOME/app" && docker compose -p mhk ps --services $2 $3 $4 $5 $6 $7 $8 $9
   ;;
 "ps" | "status")
-  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk ps $2 $3 $4 $5 $6 $7 $8 $9
+  cd "$HOST_MHK_HOME/app" && docker compose -p mhk ps $2 $3 $4 $5 $6 $7 $8 $9
   ;;
 "logs")
-  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk logs  $2 $3 $4 $5 $6 $7 $8 $9
+  cd "$HOST_MHK_HOME/app" && docker compose -p mhk logs  $2 $3 $4 $5 $6 $7 $8 $9
   ;;
 "config")
-  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk config $3 $4 $5 $6 $7 $8 $9
+  cd "$HOST_MHK_HOME/app" && docker compose -p mhk config $3 $4 $5 $6 $7 $8 $9
   ;;
 
 "restart")
-  cd "$HOST_MHK_HOME/app" && docker-compose -p mhk restart $2 $3 $4 $5 $6 $7 $8 $9
+  cd "$HOST_MHK_HOME/app" && docker compose -p mhk restart $2 $3 $4 $5 $6 $7 $8 $9
   ;;
 
   "update")
@@ -392,7 +392,7 @@ case "$1" in
   fi
   cd "${HOST_MHK_HOME}/app" || exit
   echo ".... stopping..."
-  docker-compose -p mhk stop
+  docker compose -p mhk stop
   echo "Continuing to update script" "$@"
   . "${HOST_MHK_HOME}/app/scripts/host/manager-update.bak" "$@"
   ;;
@@ -402,7 +402,7 @@ case "$1" in
   docker image prune -f
   ;;
 "push")
-  cd "${HOST_MHK_HOME}/app" && docker-compose -p mhk push $2 $3 $4 $5 $6 $7 $8 $9
+  cd "${HOST_MHK_HOME}/app" && docker compose -p mhk push $2 $3 $4 $5 $6 $7 $8 $9
   ;;
 "migrate")
   echo "MHK migration from pre-2019 versions"

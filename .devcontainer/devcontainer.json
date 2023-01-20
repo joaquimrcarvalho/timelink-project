@@ -21,10 +21,10 @@
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8080, 8088, 9000, 3367]
+	"forwardPorts": [8080, 8088, 9000, 3367],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "docker --version",
+	"postCreateCommand": "pwd; ls"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
