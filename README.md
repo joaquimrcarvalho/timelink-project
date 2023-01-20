@@ -48,3 +48,11 @@ and offers to reopen the project inside the "Container"
 The first time this is done it will take 
 a long time as VS-Code (actually Docker behind
 the scenes) creates the virtual machine.
+
+
+# TODO
+* quando estabilizar remover .git e renomear repo para timelink-mhk-install
+* a use tag deve ser latest
+* o set host deve ser o nome que no noip está ligado a a local host
+* copiar a demo-sources para o project mhk para estarem no build initial
+* verificar que os links das listas do mhk apontam correctamente para o vs code
