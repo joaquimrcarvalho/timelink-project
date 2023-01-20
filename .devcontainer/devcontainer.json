@@ -15,7 +15,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-vscode-remote.vscode-remote-extensionpack"
+				"ms-vscode-remote.vscode-remote-extensionpack",
+				"time-link.kleio"
 			]
 		}
 	},
