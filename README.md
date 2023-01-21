@@ -52,6 +52,7 @@ the scenes) creates the virtual machine.
 
 # TODO
 * quando estabilizar remover .git e renomear repo para timelink-mhk-install
+* caddy e portainer should no start by default (not easy to do)
 * a use tag deve ser latest
 * o set host deve ser o nome que no noip está ligado a a local host local.timelink-server.net
 * copiar a demo-sources para o project mhk para estarem no build initial
