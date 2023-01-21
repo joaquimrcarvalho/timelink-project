@@ -17,6 +17,34 @@
 #
 # HOST_MHK_HOME/.mhk-home-manager-init : with a date to signal that init was done
 #
+# THIS MUST BE IN SYNC WITH app/manager.sh
+test_os() {
+  _mac=$(docker version | grep -c darwin)
+  _arm=$(docker version | grep -c "arm64")
+  _windows=$(docker version | grep -c windows)
+  _linux=$(docker version | grep -c linux)
+
+  if [ "$_mac" != "0" ]; then
+    echo "mac"
+    return
+  fi
+  if [ "$_windows" != "0" ]; then
+    if [ ! -f /c/Windows/System32/BitLockerWizard.exe ]; then
+      echo "windows-home"
+    else
+      echo "windows"
+    fi
+    return
+  fi
+  if [ "$_linux" != "0" ]; then
+    echo "linux"
+    return
+  fi
+  echo "unknown"
+  return
+}
+
+
 
 echo "Initializing mhk-home ..."
 # We check if we are inside a mhk-home type directory if not we abort
@@ -85,6 +113,34 @@ if [ "$SHELL" = "/bin/zsh" ]; then
   cp -f ~/.zshenv_mhk ~/.zshenv
   echo "source ~/.bash_profile" >> ~/.zshenv
 fi
+# new style aliasing
+# add "alias mhk=\"sh '%s/app/manager'\"\n"  to .bashrc if not already there
+# add "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n"  to .bashrc if not already there
+# check if alias is already there
+touch ~/.bashrc
+touch ~/.zshrc
+if [ "$os" = "mac" ]; then
+  _alias=$(grep -c "alias mhk=" ~/.bashrc)
+else
+  _alias=$(grep --count "alias mhk=" ~/.bashrc)
+fi
+if [ "$_alias" = "0" ]; then
+  printf "alias mhk=\"sh '%s/app/manager'\"\n" "$HOST_MHK_HOME" >>~/.bashrc
+  printf "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n" "$HOST_MHK_HOME" >>~/.bashrc
+fi
+# allow for zsh
+
+if [ "$os" = "mac" ]; then
+  _alias=$(grep -c "alias mhk=" ~/.zshrc)
+else
+  _alias=$(grep --count "alias mhk=" ~/.zshrc)
+fi
+if [ "$_alias" = "0" ]; then
+  printf "alias mhk=\"sh '%s/app/manager'\"\n" "$HOST_MHK_HOME" >>~/.zshrc
+  printf "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n" "$HOST_MHK_HOME" >>~/.zshrc
+fi
+
+
 # 4. register that manager did its first time run
 date >"$HOST_MHK_HOME/.mhk-home-manager-init"
 echo "mhk-home init finished."

@@ -84,6 +84,7 @@ replace_var_in_file() {
 # if [ $(test_os) = "windows" ] ; then
 #   echo "I am running in windows"
 # fi
+# THIS MUST BE DUPLICATED IN app/scripts/host/manager-init.sh
 test_os() {
   _mac=$(docker version | grep -c darwin)
   _arm=$(docker version | grep -c "arm64")
