@@ -1,6 +1,6 @@
 version: '3.9'
 # docker-compose file for MHK
-# Version: 5 2124 (master) 21/01/2023 22:06 
+# Version: 5 2127 (master) 22/01/2023 19:28 
 # This is run from the mhk-home/app directory
 # mhk-home/app/.env should contain the variables for the various ports.
 
