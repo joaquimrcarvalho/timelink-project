@@ -1,12 +1,7 @@
 # Auto detect text files and perform LF normalization
 # see https://code.visualstudio.com/docs/remote/troubleshooting#_resolving-git-line-ending-issues-in-wsl-resulting-in-many-modified-files
-# * text=auto eolf=lf
-# *.{cmd,[cC][mM][dD]} text eol=crlf
-# *.{bat,[bB][aA][tT]} text eol=crlf
+* text=false
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
 
 # see https://stackoverflow.com/questions/21822650/disable-git-eol-conversions
-
-# Handle line endings automatically for files detected as text 
-# and leave all files detected as binary untouched.
-* text=false
-
