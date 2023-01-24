@@ -7,10 +7,22 @@
 
 ## How to use
 
-### Step one: download the Timelink instalations files
+### Step one: download the Timelink installations files
 
 1. Open VS CODE with a new window.
-2. Click on "Clone Git Repository..."
+2. If on windows, we need to prevent conversion of line endings:
+
+    2.1 Open a terminal in VS Code with CTRL+J or menu Terminal - New Terminal
+
+    2.2 Type
+
+        ```
+        
+        git config --global core.autocrlf false
+
+        ```
+
+3. Click on "Clone Git Repository..."
 
 ![Clone Git Repository...](img/vs-code-clone-git-project-1.png)
 
@@ -51,11 +63,11 @@ the scenes) creates the virtual machine.
 
 
 # TODO
-* quando estabilizar remover .git e renomear repo para timelink-mhk-install
-* caddy e portainer should no start by default (not easy to do)
-* a use tag deve ser latest
-* o set host deve ser o nome que no noip está ligado a a local host local.timelink-server.net
-* copiar a demo-sources para o project mhk para estarem no build initial
-* verificar que os links das listas do mhk apontam correctamente para o vs code
-* testar como se comporta o git numa instalação quando o repositório
+- [ ] quando estabilizar remover .git e renomear repo para timelink-mhk-install
+- [ ] caddy e portainer should no start by default (not easy to do). Uma maneira seria parar depois de mhk start except se var: expose-web=true
+- [ ] a use tag deve ser latest
+- [ ] o set host deve ser o nome que no noip está ligado a a local host local.timelink-server.net (not sure about this)
+- [ ] copiar a demo-sources para o project mhk para estarem no build initial
+- [ ] verificar que os links das listas de urls do mhk apontam correctamente para o vs code
+- [ ] testar como se comporta o git numa instalação quando o repositório
 de origem é atualizado
