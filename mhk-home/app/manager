@@ -239,6 +239,12 @@ export mhk_home_dir="$HOST_MHK_HOME"
 mhk_manager_version=$(cat "$HOST_MHK_HOME/app/manager_version")
 export mhk_manager_version
 KLEIO_ADMIN_TOKEN=$(grep ^mhk.kleio.service.token.admin  "$HOST_MHK_HOME/system/conf/mhk_system.properties" | sed 's/mhk.kleio.service.token.admin=//g')
+# KLEIO_ADMIN_TOKEN is empty set it to a random string
+if [ -z "$KLEIO_ADMIN_TOKEN" ]; then
+  echo "No Kleio server token found. Generating one."
+  KLEIO_ADMIN_TOKEN=$(openssl rand -hex 32)
+  echo "mhk.kleio.service.token.admin"="$KLEIO_ADMIN_TOKEN" >> "$HOST_MHK_HOME/system/conf/mhk_system.properties"
+fi
 export KLEIO_ADMIN_TOKEN
 
 
