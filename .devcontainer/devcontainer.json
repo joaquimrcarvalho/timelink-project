@@ -27,9 +27,6 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"disable-line-ends":"git config core.autocrlf false",
-		"remove-files":"git rm --cached  --ignore-unmatch -r . ",
-		"checkout-again":"git reset --hard",
 		"init-mhk-home":". ./mhk-home/app/scripts/host/init-container.sh"
 	}
 	
