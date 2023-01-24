@@ -1,6 +1,6 @@
 # Auto detect text files and perform LF normalization
 # see https://code.visualstudio.com/docs/remote/troubleshooting#_resolving-git-line-ending-issues-in-wsl-resulting-in-many-modified-files
-* text=true eol=lf
+* text=false
 *.{cmd,[cC][mM][dD]} text eol=crlf
 *.{bat,[bB][aA][tT]} text eol=crlf
 *.sh eol=lf # scripts should be LF
