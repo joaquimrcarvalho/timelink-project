@@ -4,7 +4,6 @@
 	"name": "Docker in Docker",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
-
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"version": "latest",
@@ -21,20 +20,19 @@
 			]
 		}
 	},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [3367,9000,8088,8080],
-
+	"forwardPorts": [
+		3367,
+		9000,
+		8088,
+		8080
+	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"init-mhk-home":". ./mhk-home/app/scripts/host/init-container.sh"
+		"init-mhk-home": ". ./mhk-home/app/scripts/host/init-container.sh"
 	}
-	
-	
-
 	// Configure tool-specific properties.
 	// "customizations": {},
-
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
