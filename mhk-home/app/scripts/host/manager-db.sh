@@ -269,7 +269,6 @@ case "$2" in
     fi
   else
     docker exec --user $(id -u):$(id -g) $mysql_container sh -c "mysql -uroot -p$MYSQL_ROOT_PASSWORD -e \"SELECT table_schema,SUM(TABLE_ROWS) FROM INFORMATION_SCHEMA.TABLES where table_schema in (SELECT table_schema FROM information_schema.tables WHERE  table_name = 'entities')group by table_schema;\" 2>/backup/.mysql.errors " >.db_status
-    clear
     cat .db_status
     echo "do 'mhk db status --follow' to have status update every few seconds"
   fi

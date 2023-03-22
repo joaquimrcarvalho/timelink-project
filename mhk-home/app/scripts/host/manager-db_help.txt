@@ -20,7 +20,8 @@ Database management commands:
     db upgrade          Upgrade database after database import, if needed.
     db fix-permissions  Fix permissions after database import, by setting default password and permissions
     db exec             Execute tools on the app database server container
-    mysql               Short cut for db exec mysql
+    mysql               Short cut for db exec mysql command line client
+    mariadb             Short cut for db exec mariadb command line client
 
 - HOST MySQL refers to a MySQL installed directly in the host computer (normally part of a pre-2019  MHK)
 - MHK MySQL refers to the MySQL installed internally by a MHK2019 install.

@@ -1,9 +1,10 @@
-version: '3.9'
 # docker-compose file for MHK
-# Version: 5 2133 (master) 23/01/2023 20:32 
+# NOTE: MAIN FILE AT ./extras/docker/docker-compose.yml
+# DO NOT EDIT FILE AT ./extras/docker/mhk-home-replace/app/docker-compose.yml
+# Version: 5 2157 (master) 17/03/2023 19:27 
 # This is run from the mhk-home/app directory
 # mhk-home/app/.env should contain the variables for the various ports.
-
+name: mhk
 services:
   mhk:
     # using tomcat 7 with jre 7.
@@ -66,7 +67,7 @@ services:
     restart: unless-stopped
 
   mysql:
-    image: ${MYSQL_IMAGE} # set in the manager script according to DATABASE_TYPE env variable
+    image: ${MYSQL_IMAGE:-mariadb} # set in the manager script according to DATABASE_TYPE env variable
     volumes: 
       - ${HOST_MHK_HOME}/system/db/mysql/init:/docker-entrypoint-initdb.d
       - ${MYSQL_DATA_DIR}:/var/lib/mysql:delegated # set in manager script
