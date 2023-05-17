@@ -1,0 +1,16 @@
+# docker-compose-override file for running MHK with MySQL
+# Version: 5 2082 (master) 09/03/2023 16:09 
+# This is run from the mhk-home/app directory
+# MHK used mysql 5.7 until Apple Silicon macs were released.
+# MHK now uses mariadb 10.5, but mysql 5.7 is still available
+# this override file is used to switch between the two.
+# It is renamed to docker-compose-override.yml when an existing mysql database is detected
+# and the architecture in AMD or Intel. The renaming is done in the manager script
+#extras/docker/docker-compose-mysql.override.yml
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ${HOST_MHK_HOME}/system/db/mysql/init:/docker-entrypoint-initdb.d
+      - ${HOST_MHK_HOME}/system/db/mysql/data:/var/lib/mysql:delegated
+      - ${HOST_MHK_HOME}/system/db/mysql/backup:/backup:delegated

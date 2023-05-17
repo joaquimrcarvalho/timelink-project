@@ -2,11 +2,14 @@
 # Script to handle the sources directory and associated git repositories
 # Called by /app/manager
 #
+COMPOSE_PROJECT_NAME=mhk
+export COMPOSE_PROJECT_NAME
+
 get_kleio_container() {
-  cd "$HOST_MHK_HOME/app" || exit # we need this for docker-compose to read the .env file
-  docker-compose -p mhk up -d kleio >/dev/null
+  cd "$HOST_MHK_HOME/app" || exit # we need this for docker compose to read the .env file
+  docker compose -p mhk up -d kleio >/dev/null
   # shellcheck source=/
-  kleio_container=$(docker-compose -p mhk ps | grep kleio | xargs -n 1 echo 2>/dev/null | head -n 1) 2>/dev/null
+  kleio_container=$(docker compose -p mhk ps | grep kleio | xargs -n 1 echo 2>/dev/null | head -n 1) 2>/dev/null
   echo "$kleio_container"
 }
 kleio_container="$(get_kleio_container)"

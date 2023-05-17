@@ -3,10 +3,10 @@
 # Called by /app/manager
 #
 get_mysql_container() {
-  cd "$HOST_MHK_HOME/app" || exit # we need this for docker-compose to read the .env file
-  docker-compose -p mhk up -d mysql >/dev/null
+  cd "$HOST_MHK_HOME/app" || exit # we need this for docker compose to read the .env file
+  docker compose -p mhk up -d mysql >/dev/null
   # shellcheck source=/
-  mysql_container=$(docker-compose -p mhk ps | grep mysql | xargs -n 1 echo 2>/dev/null | head -n 1) 2>/dev/null
+  mysql_container=$(docker compose -p mhk ps | grep mysql | xargs -n 1 echo 2>/dev/null | head -n 1) 2>/dev/null
   echo "$mysql_container"
 }
 # usage: test_mysql_password PASSWORD [ResultVar]
@@ -46,7 +46,8 @@ pre_2019_install() {
     return 1
   fi
 }
-
+COMPOSE_PROJECT_NAME=mhk
+export COMPOSE_PROJECT_NAME
 echo "Running db command" "$@"
 case "$1" in
 "mysql" | "mariadb")
@@ -269,7 +270,6 @@ case "$2" in
     fi
   else
     docker exec --user $(id -u):$(id -g) $mysql_container sh -c "mysql -uroot -p$MYSQL_ROOT_PASSWORD -e \"SELECT table_schema,SUM(TABLE_ROWS) FROM INFORMATION_SCHEMA.TABLES where table_schema in (SELECT table_schema FROM information_schema.tables WHERE  table_name = 'entities')group by table_schema;\" 2>/backup/.mysql.errors " >.db_status
-    clear
     cat .db_status
     echo "do 'mhk db status --follow' to have status update every few seconds"
   fi

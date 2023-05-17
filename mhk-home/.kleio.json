@@ -1,0 +1,14 @@
+{
+  "keio_version_date":"(2023-03-28 14:49:22, MHK: 29/03/2023 18:28 )",
+  "kleio_admin_token":"ca1ea2c08e4785ded9c0f99fd225ed6d37ed2b43183f93d7c2791f0504faeabb",
+  "kleio_admin_token_path":"/kleio-home/system/conf/kleio/.admin_token",
+  "kleio_conf_dir":"/kleio-home/system/conf/kleio",
+  "kleio_home":"/kleio-home",
+  "kleio_home_local":"/workspaces/timelink-project/mhk-home",
+  "kleio_log":"/kleio-home/system/logs/kleio/kleio_service.log",
+  "kleio_setup_date":"2023-05-17T14:53:55+0000",
+  "kleio_token_db_status":"No tokens defined but KLEIO_ADMIN_TOKEN env has valid value",
+  "kleio_url":"http://localhost:8088",
+  "kleio_version":"11.1",
+  "kleio_version_build":"534 (MHK: 2166/master)"
+}

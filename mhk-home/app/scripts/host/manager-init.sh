@@ -45,7 +45,8 @@ test_os() {
 }
 
 
-
+COMPOSE_PROJECT_NAME=mhk
+export COMPOSE_PROJECT_NAME
 echo "Initializing mhk-home ..."
 # We check if we are inside a mhk-home type directory if not we abort
 # The mhk-installer  script puts a .mhk-home in the mhk-home
@@ -84,63 +85,48 @@ printf "HOST_MHK_USER_HOME=\"%s\"\nHOST_MHK_HOME=\"%s\"\nmhk_home_dir=\"%s\"\nMY
 # Add alias to mhk manager to .bash_profile, deleting any previous one
 # Create a .bash_profile if it does not exist...
 touch ~/.bash_profile
-# 1. copy existing profile deleting any alias to mhk
-sed '/alias mhk=/d' ~/.bash_profile >~/.bash_profile_mhk
-# also delete alias for mhk.bak from backup bash profile
-if [ "$os" = "mac" ]; then
-  sed -i=bak '/alias mhk\.bak=/d' ~/.bash_profile_mhk
-else
-  sed --in-place=bak '/alias mhk\.bak=/d' ~/.bash_profile_mhk
-fi
+# 1. copy existing .bash_profile to .bash_profile_mhk deleting any alias to mhk
+sed '/alias mhk[=\.]/d' ~/.bash_profile >~/.bash_profile_mhk
+#
+# echo "~/.bash_profile_mhk with alias removed"
+# cat ~/.bash_profile_mhk
+
 # 2. backup existing profile
-cp -f ~/.bash_profile ~/.bash_profile-mhk.bak
-# 3. add new alias to manager and a backup version in case of bad update
+cp -f ~/.bash_profile ~/.bash_profile.mhk.bak
+# 3. add to .bash_profile new alias to manager and a
+#  backup version in case of bad update
 # the backup is created by the manager update command
 cp -f ~/.bash_profile_mhk ~/.bash_profile
 printf "alias mhk=\"sh '%s/app/manager'\"\n" "$HOST_MHK_HOME" >>~/.bash_profile
 printf "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n" "$HOST_MHK_HOME" >>~/.bash_profile
-# allow for zsh (MacOS 10.15+)
+# echo ".bash_profile with mhk alias"
+# cat ~/.bash_profile
 
-if [ "$SHELL" = "/bin/zsh" ]; then
-  touch ~/.zshenv
-  touch ~/.zshenv_mhk
-  if [ "$os" = "mac" ]; then
-    sed -i=bak '/source ~\/\.bash=/d' ~/.zshenv_mhk
-  else
-    sed --in-place=bak '/source ~\/\.bash=/d' ~/.zshenv_mhk
-  fi
-  cp -f ~/.zshenv ~/.zshenv.mhk.bak
-  cp -f ~/.zshenv_mhk ~/.zshenv
-  echo "source ~/.bash_profile" >> ~/.zshenv
-fi
 # new style aliasing
-# add "alias mhk=\"sh '%s/app/manager'\"\n"  to .bashrc if not already there
+# 4. add "alias mhk=\"sh '%s/app/manager'\"\n"  to .bashrc if not already there
 # add "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n"  to .bashrc if not already there
 # check if alias is already there
 touch ~/.bashrc
 touch ~/.zshrc
-if [ "$os" = "mac" ]; then
-  _alias=$(grep -c "alias mhk=" ~/.bashrc)
-else
-  _alias=$(grep --count "alias mhk=" ~/.bashrc)
-fi
-if [ "$_alias" = "0" ]; then
-  printf "alias mhk=\"sh '%s/app/manager'\"\n" "$HOST_MHK_HOME" >>~/.bashrc
-  printf "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n" "$HOST_MHK_HOME" >>~/.bashrc
-fi
-# allow for zsh
-
-if [ "$os" = "mac" ]; then
-  _alias=$(grep -c "alias mhk=" ~/.zshrc)
-else
-  _alias=$(grep --count "alias mhk=" ~/.zshrc)
-fi
-if [ "$_alias" = "0" ]; then
-  printf "alias mhk=\"sh '%s/app/manager'\"\n" "$HOST_MHK_HOME" >>~/.zshrc
-  printf "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n" "$HOST_MHK_HOME" >>~/.zshrc
-fi
+# 5. copy existing .bashrc to .bashrc.mhk deleting any alias to mhk
+sed '/alias mhk/d' ~/.bashrc >~/.bashrc.mhk
+# 6. copy existing .zshrc to .zshrc.mhk deleting any alias to mhk
+sed '/alias mhk/d' ~/.zshrc >~/.zshrc.mhk
+# 7. add alias to manager and a backup version in case of bad update
+# 7.1  to file .bashrc.mhk
+printf "alias mhk=\"sh '%s/app/manager'\"\n" "$HOST_MHK_HOME" >>~/.bashrc.mhk
+printf "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n" "$HOST_MHK_HOME" >>~/.bashrc.mhk
+# 7.2 .zshrc.mhk
+printf "alias mhk=\"sh '%s/app/manager'\"\n" "$HOST_MHK_HOME" >>~/.zshrc.mhk
+printf "alias mhk.bak=\"sh '%s/app/manager.bak'\"\n" "$HOST_MHK_HOME" >>~/.zshrc.mhk
+# 8. backup existing profile
+cp -f ~/.bashrc ~/.bashrc.mhk.bak
+cp -f ~/.zshrc ~/.zshrc.mhk.bak
+# 9. copy new .bashrc.mhk to .bashrc
+cp -f ~/.bashrc.mhk ~/.bashrc
+cp -f ~/.zshrc.mhk ~/.zshrc
 
 
-# 4. register that manager did its first time run
+# 10. register that manager did its first time run
 date >"$HOST_MHK_HOME/.mhk-home-manager-init"
 echo "mhk-home init finished."

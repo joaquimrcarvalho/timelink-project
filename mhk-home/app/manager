@@ -133,7 +133,10 @@ test_architecture() {
 
 # store current user and group
 export CURRENT_UID=$(id -u):$(id -g)
-
+# export the name of the project to docker-compose
+# see https://stackoverflow.com/questions/73427249/name-does-not-match-any-of-the-regexes-x-while-trying-to-set-the-project
+COMPOSE_PROJECT_NAME=mhk
+export COMPOSE_PROJECT_NAME
 # Initialization
 if [ "$1" = "init" ]; then
   if [ -f .mhk-home ]; then
@@ -236,6 +239,9 @@ fi
 curdir="$(pwd)"
 current_architecture="$(test_architecture)"
 export mhk_home_dir="$HOST_MHK_HOME"
+# export path to mhk home so kleio server can access it.
+export KLEIO_HOME_LOCAL="$HOST_MHK_HOME"
+
 mhk_manager_version=$(cat "$HOST_MHK_HOME/app/manager_version")
 export mhk_manager_version
 KLEIO_ADMIN_TOKEN=$(grep ^mhk.kleio.service.token.admin  "$HOST_MHK_HOME/system/conf/mhk_system.properties" | sed 's/mhk.kleio.service.token.admin=//g')
