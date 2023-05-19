@@ -14,6 +14,8 @@
  6. Wait for the codespace to be created
  7. Open the terminal and type "mhk start mhk"
  8. In the ports section of the terminal window click on http://localhost:8080 (or type `mhk version` and ctrl/commd+click on the MHK URL) 
+ 9. Login with username `demo` and password `timelink`
+   
 
 ## Run the codespace in VS Code instead of the browser
 
@@ -21,6 +23,9 @@
  2. Install the "Codespaces" extension
  3. Follow instruction to login in Github
  4. Select the codespace created before
+ 5. In the terminal type "mhk start mhk"
+ 6. MHK can be accessed in the browser at http://localhost:8080 (or type `mhk version` and ctrl/commd+click on the MHK URL)
+ 7. Login with username `demo` and password `timelink`
 
 
 ## Run timelink-MHK in a Virtual Machine in your computer
@@ -39,7 +44,8 @@ To run timelink-mhk in a virtual machine in your computer, with no limitations, 
  7. Click on "Reopen in Container"
  8. Wait for the container to be created
  9. Open the terminal and type "mhk start mhk"
- 10. In the ports section of the terminal window click on http://localhost:8080 (or type mhk version and ctrl/commd+click on the MHK URL)
+ 10. Open http://localhost:8080 (or type mhk version and ctrl/commd+click on the MHK URL)
+ 11. Login with username `demo` and password `timelink`
 
 
 On windows you might get an error related to the line endings. To fix this open a terminal in VS Code with CTRL+J or menu Terminal - New Terminal and type:
