@@ -1,73 +1,50 @@
 # timelink-project
 
- A timelink-mhk home with dev container. 
+ A timelink-mhk instalation with dev container. 
 
- This is a quick way to create a timelink-mhk instalation 
- to be run with docker.
+## Run timelink-MHK directly in a Virtual Machine over the internet
 
-## How to use
+ This is a quick way to run timelink-mhk directly in a github codespace, inside a browser, no extra software needed.
 
-### Step one: download the Timelink installations files
+ 1. Go to https://github.com/joaquimrcarvalho/timelink-project 
+ 2. Fork the project with a name like "myproject-mhk-install"
+ 3. In the forked project click on "Code"
+ 4. Go to the "codespaces" tab
+ 5. Click on "New codespace"
+ 6. Wait for the codespace to be created
+ 7. Open the terminal and type "mhk start mhk"
+ 8. In the ports section of the terminal window click on http://localhost:8080 (or type `mhk version` and ctrl/commd+click on the MHK URL) 
 
-1. Open VS CODE with a new window.
-2. If on windows, we need to prevent conversion of line endings:
+## Run the codespace in VS Code instead of the browser
 
-    2.1 Open a terminal in VS Code with CTRL+J or menu Terminal - New Terminal
-
-    2.2 Type
-
-        ```
-        
-        git config --global core.autocrlf false
-
-        ```
-
-3. Click on "Clone Git Repository..."
-
-![Clone Git Repository...](img/vs-code-clone-git-project-1.png)
-
-3. Click on "Clone from GitHub"
-
-![](img/vs-code-clone-git-project-2.png)
-
-4. Type "joaquimrcarvalho/timelink-project" 
-
-5 . Create a folder for the new project.
-
-![](img/vs-code-clone-git-project-3.png)
-
-Click on "Select as Repository Destination"
-
-6. When the download is finished click the 
-"Open button" to confirm and open the project.
-
-![](img/vs-code-clone-git-project-4.png)
+ 1. Install VS Code
+ 2. Install the "Codespaces" extension
+ 3. Follow instruction to login in Github
+ 4. Select the codespace created before
 
 
-## Step two: generate the container to run timelink-mhk
+## Run timelink-MHK in a Virtual Machine in your computer
 
-The project contains a specification of a
-"Container" to run timelink-mhk.
+The instructions above require internet connection and are subject to the limitations of the codespace environment, namely limit
+number of hours per month in free github accounts. 
 
-A "Container" is like a virtual computer 
-that is created in your machine.
+To run timelink-mhk in a virtual machine in your computer, with no limitations, follow the instructions below.
 
-VS Code detects the Container configuration file
-and offers to reopen the project inside the "Container"
+ 1. Install VS Code
+ 2. Install the "Remote - Containers" extension
+ 3. Install Docker
+ 4. Install git
+ 5. Clone the project
+ 6. Open the project in VS Code
+ 7. Click on "Reopen in Container"
+ 8. Wait for the container to be created
+ 9. Open the terminal and type "mhk start mhk"
+ 10. In the ports section of the terminal window click on http://localhost:8080 (or type mhk version and ctrl/commd+click on the MHK URL)
 
-![Reopen project in container](img/vs-code-clone-git-project-5.png)
 
-The first time this is done it will take 
-a long time as VS-Code (actually Docker behind
-the scenes) creates the virtual machine.
+On windows you might get an error related to the line endings. To fix this open a terminal in VS Code with CTRL+J or menu Terminal - New Terminal and type:
 
-
-# TODO
-- [ ] quando estabilizar remover .git e renomear repo para timelink-mhk-install
-- [ ] caddy e portainer should no start by default (not easy to do). Uma maneira seria parar depois de mhk start except se var: expose-web=true
-- [ ] a use tag deve ser latest
-- [ ] o set host deve ser o nome que no noip está ligado a a local host local.timelink-server.net (not sure about this)
-- [ ] copiar a demo-sources para o project mhk para estarem no build initial
-- [ ] verificar que os links das listas de urls do mhk apontam correctamente para o vs code
-- [ ] testar como se comporta o git numa instalação quando o repositório
-de origem é atualizado
+``` 
+git config --global core.autocrlf false
+```
+and repeat the steps 5-10.
