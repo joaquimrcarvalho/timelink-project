@@ -1,7 +1,7 @@
 # docker-compose file for MHK
 # NOTE: MAIN FILE AT ./extras/docker/docker-compose.yml
 # DO NOT EDIT FILE AT ./extras/docker/mhk-home-replace/app/docker-compose.yml
-# Version: 5 2166 (master) 29/03/2023 18:28 
+# Version: 5 2183 (master) 21/05/2023 20:34 
 # This is run from the mhk-home/app directory
 # mhk-home/app/.env should contain the variables for the various ports.
 name: mhk

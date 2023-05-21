@@ -24,7 +24,7 @@
     docker run --name manager --rm  -v /"${PWD}":/mhk-home joaquimrcarvalho/mhk-manager:$TAG mhk-install
     echo "Updating components. This may take a while."
     cd "${HOST_MHK_HOME}/app"
-    docker-compose -p mhk pull --include-deps mhk
+    docker compose -p mhk pull --include-deps mhk
     echo "MHK update from repository finished"
   fi
   echo "Start services with:"
