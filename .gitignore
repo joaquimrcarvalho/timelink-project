@@ -8,3 +8,5 @@ mhk-home/kleio
 mhk-home/system/conf/kleio/token_db
 .DS_Store
 mhk-home/sources/demo_sources/soure/.vscode/spellright.dict
+mhk-home/.kleio.json
+mhk-home/.kleio.json

@@ -1,9 +1,19 @@
-KleioTranslator - server version 10.18 - build 463 (MHK: 2157/master) (2022-06-15 14:08:16, MHK: 17/03/2023 19:27 )
-22-3-2023 9-16
+KleioTranslator - server version 11.1 - build 537 (MHK: 2183/master) (2023-04-04 10:31:40, MHK: 21/05/2023 20:34 )
+21-5-2023 12-52
 
 Processing structure:gacto2.str
 Creating new structure definition for: kleio
+
+ERROR: /kleio-home/system/conf/kleio/stru/gacto2.str line 351 *** Unable to compile å command.!
+Near lines: 350 å©
+Near lines: 351 note ****************************************************************
+
+
+ERROR: /kleio-home/system/conf/kleio/stru/gacto2.str line 359 *** Unable to compile part command.!
+Near lines: 358 
+Near lines: 359 note ****************************************************************
+
 End of File
-0  errors. 
+2  errors. 
 0  warnings.
 -----------End of structure --------

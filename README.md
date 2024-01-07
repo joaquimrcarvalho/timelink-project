@@ -54,3 +54,25 @@ On windows you might get an error related to the line endings. To fix this open 
 git config --global core.autocrlf false
 ```
 and repeat the steps 5-10.
+
+## Add a sources repository
+
+For a repository with sources to be added
+like
+
+    https://github.com/joaquimrcarvalho/dehergne-locations.git 
+
+
+Add it to mhk-home/sources with:
+
+1. Open a terminal with (ctrl + j / cmd + j)
+2. git subtree add --prefix mhk-home/sources/dehergne-locations https://github.com/joaquimrcarvalho/dehergne-locations.git  main --squash
+
+To pull changes from the source repository do:
+
+3. git subtree pull --prefix mhk-home/sources/dehergne-locations https://github.com/joaquimrcarvalho/dehergne-locations.git  main --squash
+
+To push local changes to the local repository 
+do
+
+4. git subtree push --prefix mhk-home/sources/dehergne-locations https://github.com/joaquimrcarvalho/dehergne-locations.git  main --squash

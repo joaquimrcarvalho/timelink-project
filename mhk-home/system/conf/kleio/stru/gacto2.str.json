@@ -24669,7 +24669,7 @@
       "typical": ["nome", "sexo" ]
     },
     "fim": {
-      "complete": ["obs" ],
+      "complete": ["id" ],
       "includes": [],
       "minimal": [],
       "name":"fim",
